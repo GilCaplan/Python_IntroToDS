@@ -16,7 +16,7 @@ def load_data(path, features):
 #features - lists of relevant programs that we need
 
 
-def filter_by_feature(data, feature, values=[]):
+def filter_by_feature(data, feature, values):
     data1, data2 = []
     #set new lists for each feature in the list
     for key in data:
