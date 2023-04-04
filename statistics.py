@@ -31,13 +31,24 @@ def calc_covariance(values1=[], values2=[]):
 
 
 def population_statistics(feature_description, data, treatment, target, threshold, is_above, statistic_functions):
-    list = []
+    print(feature_description, "\n")
+
+    new_dict = {}
+    for key in data:
+        new_dict[key]= []
+
     if is_above:
-        for key, value in data:
-            if key == treatment and data > threshold:
-                list.append(value)
+        for i in range(len(data[treatment])):
+            if data[treatment][i] > threshold:
+                for key in new_dict:
+                    new_dict[key].add(data[key][i])
 
     else:
-        for key, value in data:
-            if key == treatment and data <= threshold:
-                list.append(value)
+        for i in range(len(data[treatment])):
+            if data[treatment][i] <= threshold:
+                for key in new_dict:
+                    new_dict[key].add(data[key][i])
+
+    for func in statistic_functions:
+        print(func(new_dict[target]))
+
