@@ -37,14 +37,15 @@ def filter_by_feature(data, feature, values=[]):
 
 
 def print_details(data, features, statistics_functions):
-    stats = []
-    data1, data2 = filter_by_feature(data, features)
-    for statistic in statistics_functions:
-        stats.append(statistic(data1, data2))
-
-    #print stats
-    pass
+    for key in data:
+        if key in features:
+            for statistic in statistics_functions:
+                print(statistic(data[key]), "\n")
 
 
 def print_joint_details(data, features, statistic_functions, statistic_functions_names):
-    pass
+    values1 = data[features[0]]
+    values2 = data[features[1]]
+
+    for name, func in zip(statistic_functions_names, statistic_functions):
+        print(name, func(values1, values2), "\n")
