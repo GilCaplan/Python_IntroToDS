@@ -22,7 +22,7 @@ def filter_by_feature(data, feature, values):
     for key in data:
         data1[key] = []
         data2[key] = []
-    #loop through each line of data, add to data 1 if the value is in values
+    #loop through each line of data, add to data1 if the value is in values
     #otherwise add to data2
     for i in range(len(data[feature])):#going through the data list line by line
         val = data[feature][i]
@@ -40,7 +40,7 @@ def print_details(data, features, statistics_functions):
     for key in data:
         if key in features:
             for statistic in statistics_functions:
-                print(statistic(data[key]), "\n")
+                print(statistic(data[key]), " ")
 
 
 def print_joint_details(data, features, statistic_functions, statistic_functions_names):
@@ -48,4 +48,4 @@ def print_joint_details(data, features, statistic_functions, statistic_functions
     values2 = data[features[1]]
 
     for name, func in zip(statistic_functions_names, statistic_functions):
-        print(name, func(values1, values2), "\n")
+        print(name, func(values1, values2))

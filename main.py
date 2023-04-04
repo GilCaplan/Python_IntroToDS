@@ -30,11 +30,32 @@ def solveq1(argv):
     d.print_joint_details(data, two_features, [s.calc_covariance])
     print("\n")
 
+def solveq2(argv):
+    data = d.load_data(argv[1], argv[2])
 
+    features = ["t1", "cnt"]
+    stat_funcs = [s.calc_mean, s.calc_stdv]
+
+    winter = d.filter_by_feature(data, "season", 3)
+    holiday, weekday = d.filter_by_feature(winter, "is_holiday", [1])
+
+    print("If t1<=13.0, then:\n Winter holiday records: \n")
+    print("cnt: ", d.print_details(holiday, features, stat_funcs))
+
+    print("Winter weekly records: \n")
+    print("cnt: ", d.print_details(weekday, features, stat_funcs))
+
+    print("If t1>13.0, then:\n Winter holiday records:\n")
+    print("cnt: ", d.print_details(holiday, features, stat_funcs))
+
+    print("Winter weekly records: \n")
+    print("cnt: ", d.print_details(weekday, features, stat_funcs))
+    pass
 
 
 def main(argv):
     solveq1(argv)
+    solveq2(argv)
 
 
 if __name__ == '__main__':
