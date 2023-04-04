@@ -1,0 +1,28 @@
+Question 1:
+Summer:
+hum: 65.91, 15.63
+t1: 18.55, 3.67
+cnt: 1537.15, 1324.58
+Cov(t1, cnt): 2621.35
+Holiday:
+hum: 76.60, 13.74
+t1: 10.60, 4.60
+cnt: 668.07, 850.28
+Cov(t1, cnt): 2151.48
+All:
+hum: 72.18, 14.43
+t1: 12.50, 5.63
+cnt: 1154.09, 1108.60
+Cov(t1, cnt): 2595.00
+
+Question 2:
+If t1<=13.0, then:
+Winter Holiday records:
+cnt: 393.77, 421.30
+Winter Weekday records:
+cnt: 801.65, 831.14
+If t1>13.0, then:
+Winter Holiday records:
+cnt: 1080.33, 810.76
+Winter Weekday records:
+cnt: 987.93, 660.62
