@@ -49,4 +49,4 @@ def print_joint_details(data, features, statistic_functions, statistic_functions
     values2 = data[features[1]]
 
     for name, func in zip(statistic_functions_names, statistic_functions):
-        print(name," ", func(values1, values2))
+        print(name, " ", func(values1, values2))

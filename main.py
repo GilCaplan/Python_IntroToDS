@@ -52,10 +52,10 @@ def solveq2(argv):
 
     print("Winter weekly records: \n")
     print("cnt: ", d.print_details(weekday, features, stat_funcs))
-    pass
 
 
 def main(argv):
+    # your_path = "C:\Users\USER\PycharmProjects\pythonProject"
     solveq1(argv)
     solveq2(argv)
 
