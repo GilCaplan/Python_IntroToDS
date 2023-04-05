@@ -18,7 +18,7 @@ def load_data(path, features):
 
 
 def filter_by_feature(data, feature, values):
-    data1, data2 = []
+    data1 = [], data2 = []
     # set new lists for each feature in the list
     for key in data:
         data1[key] = []
