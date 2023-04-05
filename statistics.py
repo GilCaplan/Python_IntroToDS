@@ -1,24 +1,23 @@
 from math import sqrt
 
 
-def calc_mean(values=[]):
-    avr = 0
-    for val in values:
-        avr += val
-    return avr/len(values)
+#returns the average of the list
+def calc_mean(values=[0]):
+    return sum(values)/len(values)
 
-
-def calc_stdv(values=[]):
+#returns the stdv
+def calc_stdv(values=[0]):
     avr = calc_mean(values)
     s = 0
     for val in values:
         s += (val-avr)**2
     return sqrt(s/(len(values)-1))
 
-
+#returns the Covariance of 2 lists
 def calc_covariance(values1=[], values2=[]):
     if len(values1) != len(values2):
         return 0
+
     cov = 0
 
     avr1 = calc_mean(values1)
@@ -35,7 +34,7 @@ def population_statistics(feature_description, data, treatment, target, threshol
 
     new_dict = {}
     for key in data:
-        new_dict[key]= []
+        new_dict[key] = []
 
     if is_above:
         for i in range(len(data[treatment])):
