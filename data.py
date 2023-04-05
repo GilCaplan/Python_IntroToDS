@@ -12,26 +12,27 @@ def load_data(path, features):
             data_with_features[feature] = lis
     return data_with_features
 
-#path - full path to data
-#features - lists of relevant programs that we need
+
+# path - full path to data
+# features - lists of relevant programs that we need
 
 
 def filter_by_feature(data, feature, values):
     data1, data2 = []
-    #set new lists for each feature in the list
+    # set new lists for each feature in the list
     for key in data:
         data1[key] = []
         data2[key] = []
-    #loop through each line of data, add to data1 if the value is in values
-    #otherwise add to data2
-    for i in range(len(data[feature])):#going through the data list line by line
+    # loop through each line of data, add to data1 if the value is in values
+    # otherwise add to data2
+    for i in range(len(data[feature])):  # going through the data list line by line
         val = data[feature][i]
         if val in values:
-            for key in data1:
-                data1[key].add(data[key][i])
+            for key, lis in data1:
+                data1[key].append(lis[i])
         else:
-            for key in data2:
-                data2[key].add(val)
+            for key, lis in data2:
+                data2[key].append(lis[i])
 
     return data1, data2
 
@@ -48,4 +49,4 @@ def print_joint_details(data, features, statistic_functions, statistic_functions
     values2 = data[features[1]]
 
     for name, func in zip(statistic_functions_names, statistic_functions):
-        print(name, func(values1, values2))
+        print(name," ", func(values1, values2))

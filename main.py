@@ -30,6 +30,7 @@ def solveq1(argv):
     d.print_joint_details(data, two_features, [s.calc_covariance])
     print("\n")
 
+
 def solveq2(argv):
     data = d.load_data(argv[1], argv[2])
 
