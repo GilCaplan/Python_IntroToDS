@@ -45,9 +45,11 @@ def solveq2(argv):
 
     print("If t1<=13.0, then:\n")
     s.population_statistics("Winter holiday records:", winter, "t1", "cnt", 13, False, stat_funcs)
+    print("\n")
     s.population_statistics("Winter weekday records:", winter, "t1", "cnt",13, False, stat_funcs)
     print("If t1>13.0, then:\n")
     s.population_statistics("Winter holiday records:", winter, "t1", "cnt", 13, True, stat_funcs)
+    print("\n")
     s.population_statistics("Winter weekday records:", winter, "t1", "cnt", 13, True, stat_funcs)
 
 

@@ -50,5 +50,5 @@ def population_statistics(feature_description, data, treatment, target, threshol
                 for key in new_dict:
                     new_dict[key].append(data[key][i])
 
-    for func in statistic_functions:
-        print(func(new_dict[target]))
+    print(statistic_functions[0](new_dict[target]), ", ")
+    print(statistic_functions[1](new_dict[target]))
