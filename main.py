@@ -43,18 +43,13 @@ def solveq2(argv):
     winter = d.filter_by_feature(data, "season", 3)
     holiday, weekday = d.filter_by_feature(winter, "is_holiday", [1])
 
-    t1_winter_mean = s.calc_mean(winter["t1"])
+    print("If t1<=13.0, then:\n")
+    s.population_statistics("Winter holiday records:", winter, "t1", "cnt", 13, False, stat_funcs)
+    s.population_statistics("Winter weekday records:", winter, "t1", "cnt",13, False, stat_funcs)
+    print("If t1>13.0, then:\n")
+    s.population_statistics("Winter holiday records:", winter, "t1", "cnt", 13, True, stat_funcs)
+    s.population_statistics("Winter weekday records:", winter, "t1", "cnt", 13, True, stat_funcs)
 
-    if t1_winter_mean <= 13:
-        print("If t1<=13.0, then:\n")
-    else:
-        print("If t1>13.0, then:\n")
-
-    print("Winter holiday records: \n")
-    print("cnt: ", d.print_details(holiday, features, stat_funcs))
-
-    print("Winter weekly records: \n")
-    print("cnt: ", d.print_details(weekday, features, stat_funcs))
 
 
 def main(argv):
