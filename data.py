@@ -42,8 +42,7 @@ def print_details(data, features, statistics_functions):
         if key in features:
             print(key, ": ")
             print(statistics_functions[0](data[key]), ", ")
-            print(statistics_functions[1](data[key]))
-            print("\n")
+            print(statistics_functions[1](data[key]), "\n")
 
 
 def print_joint_details(data, features, statistic_functions, statistic_functions_names):
