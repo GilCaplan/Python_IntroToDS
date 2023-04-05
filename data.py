@@ -40,8 +40,10 @@ def filter_by_feature(data, feature, values):
 def print_details(data, features, statistics_functions):
     for key in data:
         if key in features:
-            for statistic in statistics_functions:
-                print(statistic(data[key]), " ")
+            print(key, ": ")
+            print(statistics_functions[0](data[key]), ", ")
+            print(statistics_functions[1](data[key]))
+            print("\n")
 
 
 def print_joint_details(data, features, statistic_functions, statistic_functions_names):
@@ -49,4 +51,4 @@ def print_joint_details(data, features, statistic_functions, statistic_functions
     values2 = data[features[1]]
 
     for name, func in zip(statistic_functions_names, statistic_functions):
-        print(name, " ", func(values1, values2))
+        print(name, ": ", func(values1, values2))

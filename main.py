@@ -7,28 +7,30 @@ def solveq1(argv):
     data = d.load_data(argv[1], argv[2])
 
     summer = d.filter_by_feature(data, "season", data[1])
+    holiday = d.filter_by_feature(data, "holiday", data[1])
+
     features = ["hum", "t1", "cnt"]
     two_features = ["t1", "cnt"]
     stat_funcs = [s.calc_mean, s.calc_stdv]
-    stat_funcs_name = ["calc_mean", "calc_stdv"]
+    joint_stat_name = "Cov(t1, cnt)"
+
     print("Summer \n")
 
     d.print_details(summer, features, stat_funcs)
     print("\n")
-    d.print_joint_details(summer, two_features, [s.calc_covariance], stat_funcs_name)
+    d.print_joint_details(summer, two_features, [s.calc_covariance], joint_stat_name)
     print("\n")
 
-    holiday = d.filter_by_feature(data, "holiday", data[1])
     print("Holiday: \n")
     d.print_details(holiday, features, stat_funcs)
     print("\n")
-    d.print_joint_details(holiday, two_features, [s.calc_covariance], stat_funcs_name)
+    d.print_joint_details(holiday, two_features, [s.calc_covariance], joint_stat_name)
     print("\n")
 
     print("All: \n")
     d.print_details(data, features, stat_funcs)
     print("\n")
-    d.print_joint_details(data, two_features, [s.calc_covariance], stat_funcs_name)
+    d.print_joint_details(data, two_features, [s.calc_covariance], joint_stat_name)
     print("\n")
 
 
