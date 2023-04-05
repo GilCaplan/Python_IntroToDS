@@ -37,21 +37,19 @@ def solveq1(argv):
 def solveq2(argv):
     data = d.load_data(argv[1], argv[2])
 
-    features = ["t1", "cnt"]
     stat_funcs = [s.calc_mean, s.calc_stdv]
 
     winter = d.filter_by_feature(data, "season", 3)
     holiday, weekday = d.filter_by_feature(winter, "is_holiday", [1])
 
     print("If t1<=13.0, then:\n")
-    s.population_statistics("Winter holiday records:", winter, "t1", "cnt", 13, False, stat_funcs)
+    s.population_statistics("Winter holiday records:", holiday, "t1", "cnt", 13, False, stat_funcs)
     print("\n")
-    s.population_statistics("Winter weekday records:", winter, "t1", "cnt",13, False, stat_funcs)
-    print("If t1>13.0, then:\n")
-    s.population_statistics("Winter holiday records:", winter, "t1", "cnt", 13, True, stat_funcs)
+    s.population_statistics("Winter weekday records:", weekday, "t1", "cnt", 13, False, stat_funcs)
+    print("\nIf t1>13.0, then:\n")
+    s.population_statistics("Winter holiday records:", holiday, "t1", "cnt", 13, True, stat_funcs)
     print("\n")
-    s.population_statistics("Winter weekday records:", winter, "t1", "cnt", 13, True, stat_funcs)
-
+    s.population_statistics("Winter weekday records:", weekday, "t1", "cnt", 13, True, stat_funcs)
 
 
 def main(argv):
