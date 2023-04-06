@@ -39,7 +39,8 @@ def qst2(winter_data):
 
 
 def main(argv):
-    # argv.append(r"london.csv")
+    # uncomment to get the london sample
+    # argv.append(r"london_sample.csv")
     # argv.append("hum, t1, cnt, season, is_holiday")
     london_data = data.load_data(argv[1], argv[2].split(", "))
     qst1(london_data)
