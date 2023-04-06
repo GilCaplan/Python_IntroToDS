@@ -44,11 +44,11 @@ def print_details(data, features, statistic_functions):
         feature_line = feature + ": "
 
         for stat_function in statistic_functions:
-            feature_line += str(stat_function(data[feature])) + ", "
+            feature_line += str(round(stat_function(data[feature]), 2)) + ", "
 
         print(feature_line.rstrip(", "))
 
 
 def print_joint_details(data, features, statistic_functions, statistic_functions_names):
     for stat_name, stat_function in zip(statistic_functions_names, statistic_functions):
-        print(stat_name + ": " + str(stat_function(data[features[0]], data[features[1]])))
+        print(stat_name + ": " + str(round(stat_function(data[features[0]], data[features[1]]), 2)))
