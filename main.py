@@ -18,7 +18,7 @@ def qst1(london_data):
     data.print_details(holiday_data, features, [statistics.calc_mean, statistics.calc_stdv])
     data.print_joint_details(holiday_data, cov_features, [statistics.calc_covariance], ["Cov(t1, cnt)"])
 
-    print("All: " + str(len(london_data["hum"])))
+    print("All: ")
     data.print_details(london_data, features, [statistics.calc_mean, statistics.calc_stdv])
     data.print_joint_details(london_data, cov_features, [statistics.calc_covariance], ["Cov(t1, cnt)"])
 
