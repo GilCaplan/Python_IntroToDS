@@ -1,64 +1,52 @@
 import sys
-import data as d
-import statistics as s
+import data
+import statistics
 
 
-def solveq1(argv):
-    data = d.load_data(argv[1], argv[2])
-
-    summer = d.filter_by_feature(data, "season", data[1])
-    holiday = d.filter_by_feature(data, "holiday", data[1])
-
+def qst1(london_data):
+    print("Question 1:")
     features = ["hum", "t1", "cnt"]
-    two_features = ["t1", "cnt"]
-    stat_funcs = [s.calc_mean, s.calc_stdv]
-    joint_stat_name = "Cov(t1, cnt)"
+    cov_features = ["t1", "cnt"]
 
-    print("Summer \n")
+    print("Summer: ")
+    summer_data = data.filter_by_feature(london_data, "season", {1})[0]
+    data.print_details(summer_data, features, [statistics.calc_mean, statistics.calc_stdv])
+    data.print_joint_details(summer_data, cov_features, [statistics.calc_covariance], ["Cov(t1, cnt)"])
 
-    d.print_details(summer, features, stat_funcs)
-    print("\n")
-    d.print_joint_details(summer, two_features, [s.calc_covariance], joint_stat_name)
-    print("\n")
+    print("Holiday: ")
+    holiday_data = data.filter_by_feature(london_data, "is_holiday", {1})[0]
+    data.print_details(holiday_data, features, [statistics.calc_mean, statistics.calc_stdv])
+    data.print_joint_details(holiday_data, cov_features, [statistics.calc_covariance], ["Cov(t1, cnt)"])
 
-    print("Holiday: \n")
-    d.print_details(holiday, features, stat_funcs)
-    print("\n")
-    d.print_joint_details(holiday, two_features, [s.calc_covariance], joint_stat_name)
-    print("\n")
+    print("All: ")
+    data.print_details(london_data, features, [statistics.calc_mean, statistics.calc_stdv])
+    data.print_joint_details(london_data, cov_features, [statistics.calc_covariance], ["Cov(t1, cnt)"])
 
-    print("All: \n")
-    d.print_details(data, features, stat_funcs)
-    print("\n")
-    d.print_joint_details(data, two_features, [s.calc_covariance], joint_stat_name)
-    print("\n")
+    print()
 
 
-def solveq2(argv):
-    data = d.load_data(argv[1], argv[2])
+def qst2(winter_data):
+    print("Question 2:")
+    holiday, non_holiday = data.filter_by_feature(winter_data, "is_holiday", {1})
+    stat_functions = [statistics.calc_mean, statistics.calc_stdv]
 
-    stat_funcs = [s.calc_mean, s.calc_stdv]
-
-    winter = d.filter_by_feature(data, "season", 3)
-    holiday, weekday = d.filter_by_feature(winter, "is_holiday", [1])
-
-    print("If t1<=13.0, then:\n")
-    s.population_statistics("Winter holiday records:", holiday, "t1", "cnt", 13, False, stat_funcs)
-    print("\n")
-    s.population_statistics("Winter weekday records:", weekday, "t1", "cnt", 13, False, stat_funcs)
-    print("\nIf t1>13.0, then:\n")
-    s.population_statistics("Winter holiday records:", holiday, "t1", "cnt", 13, True, stat_funcs)
-    print("\n")
-    s.population_statistics("Winter weekday records:", weekday, "t1", "cnt", 13, True, stat_funcs)
+    print("If t1<=13.0, then:")
+    statistics.population_statistics("Winter holiday records", holiday, "t1", "cnt", 13.0, False, stat_functions)
+    statistics.population_statistics("Winter weekday records", non_holiday, "t1", "cnt", 13.0, False, stat_functions)
+    print("If t1>13.0, then:")
+    statistics.population_statistics("Winter holiday records", holiday, "t1", "cnt", 13.0, True, stat_functions)
+    statistics.population_statistics("Winter weekday records", non_holiday, "t1", "cnt", 13.0, True, stat_functions)
 
 
 def main(argv):
-    # your_path = "C:\Users\USER\PycharmProjects\pythonProject"
-    solveq1(argv)
-    solveq2(argv)
+    # argv.append(r"london.csv")
+    # argv.append("hum, t1, cnt, season, is_holiday")
+    london_data = data.load_data(argv[1], argv[2].split(", "))
+    qst1(london_data)
+    qst2(data.filter_by_feature(london_data, "season", {3})[0])
 
 
 if __name__ == '__main__':
     main(sys.argv)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+

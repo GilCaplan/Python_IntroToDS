@@ -1,54 +1,38 @@
 from math import sqrt
+from data import filter_by_feature, print_details
 
 
-# returns the average of the list
 def calc_mean(values):
-    return sum(values)/len(values)
+    return round(sum(values) / len(values), 2)
 
 
-# returns the stdv
 def calc_stdv(values):
-    avr = calc_mean(values)
-    s = 0
-    for val in values:
-        s += (val-avr)**2
-    return sqrt(s/(len(values)-1))
+    mean = calc_mean(values)
+    return round(sqrt(sum(map(lambda x: (x-mean)**2, values)) / (len(values)-1)), 2)
 
 
-# returns the Covariance of 2 lists
 def calc_covariance(values1, values2):
-    if len(values1) != len(values2):
-        return 0
+    mean1 = calc_mean(values1)
+    mean2 = calc_mean(values2)
 
-    cov = 0
-
-    avr1 = calc_mean(values1)
-    avr2 = calc_mean(values2)
-
-    for x, y in zip(values1, values2):
-        cov += (x-avr1)*(y-avr2)
-
-    return cov/(len(values1)-1)
+    return round(sum(map(lambda x: (x[0]-mean1)*(x[1]-mean2), list(zip(values1, values2)))) / (len(values1)-1), 2)
 
 
 def population_statistics(feature_description, data, treatment, target, threshold, is_above, statistic_functions):
-    print(feature_description, "\n")
+    """
+    Prints statistical information on filtered data above/under threshold of treatment, according to the target feature
 
-    new_dict = {}
-    for key in data:
-        new_dict[key] = []
+    :param feature_description: string which describes the feature
+    :param data: dictionary where keys are the features and values are lists of values of the features
+    :param treatment: name of a feature
+    :param target: name of a feature
+    :param threshold: critical value of the treatment feature
+    :param is_above: indicates if we need rows that are above or under the threshold with respect to treatment
+    :param statistic_functions: list of statistical functions
+    :return:
+    """
+    values = {x for x in data[treatment] if (is_above and x > threshold) or x <= threshold}
+    data1, data2 = filter_by_feature(data, treatment, values)
 
-    if is_above:
-        for i in range(len(data[treatment])):
-            if data[treatment][i] > threshold:
-                for key in new_dict:
-                    new_dict[key].append(data[key][i])
-
-    else:
-        for i in range(len(data[treatment])):
-            if data[treatment][i] <= threshold:
-                for key in new_dict:
-                    new_dict[key].append(data[key][i])
-
-    print(statistic_functions[0](new_dict[target]), ", ")
-    print(statistic_functions[1](new_dict[target]))
+    print(feature_description, end=":\n")
+    print_details(data1, [target], statistic_functions)
