@@ -41,7 +41,7 @@ def print_details(data, features, statistics_functions):
     for key in data:
         if key in features:
             print(key, ": ")
-            print(str(round(statistics_functions[0](data[key]),2)), ", ")
+            print(str(round(statistics_functions[0](data[key]), 2)), ", ")
             print(str(round(statistics_functions[1](data[key]), 2)), "\n")
 
 
