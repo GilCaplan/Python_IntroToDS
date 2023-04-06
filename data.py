@@ -8,7 +8,6 @@ def load_data(path, features):
     :param features: relevant columns from the table
     :return: dictionary with keys which are features and the values are lists for each feature (the column)
     """
-
     df = p.read_cvs(path)
     data = df.to_dict(orient="list")
 
