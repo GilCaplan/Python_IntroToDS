@@ -28,6 +28,7 @@ def solveq1(london_data):
     data.print_joint_details(data, cov_features, [s.calc_covariance], joint_stat_name)
     print("\n")
 
+
 def solveq2(winter_data):
     print("Question 2: \n")
     stat_funcs = [s.calc_mean, s.calc_stdv]
