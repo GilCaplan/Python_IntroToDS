@@ -2,37 +2,38 @@ import pandas as p
 
 
 def load_data(path, features):
+    """
+    Loads data from path with relevant feature columns
+    :param path: path to the csv table file
+    :param features: relevant columns from the table
+    :return: dictionary with keys which are features and the values are lists for each feature (the column)
+    """
+
     df = p.read_cvs(path)
     data = df.to_dict(orient="list")
 
-    # data is a dict: {"cnt":[list], "t1":[list],"is_holiday":[list]}
-    data_with_features = {}
-    for feature, lis in data:
-        if feature in features:
-            data_with_features[feature] = lis
-    return data_with_features
+    for key in data.copy():
+        if key not in features:
+            data.pop(key)
+
+    return data
 
 
-# path - full path to data
-# features - lists of relevant programs that we need
+def transfer_row(data1, data2, row_index):
+    for key in data1.keys():
+        data2[key].append(data1[key].pop(row_index))
 
 
 def filter_by_feature(data, feature, values):
-    data1 = [], data2 = []
-    # set new lists for each feature in the list
-    for key in data:
-        data1[key] = []
+    data1 = dict(data)
+    data2 = {}
+
+    for key in data.keys():
         data2[key] = []
-    # loop through each line of data, add to data1 if the value is in values
-    # otherwise add to data2
-    for i in range(len(data[feature])):  # going through the data list line by line
-        val = data[feature][i]
-        if val in values:
-            for key, lis in data1:
-                data1[key].append(lis[i])
-        else:
-            for key, lis in data2:
-                data2[key].append(lis[i])
+
+    for i, value in enumerate(data[feature]):
+        if value in values:
+            transfer_row(data1, data2, i)
 
     return data1, data2
 
@@ -41,13 +42,13 @@ def print_details(data, features, statistics_functions):
     for key in data:
         if key in features:
             print(key, ": ")
-            print(statistics_functions[0](data[key]), ", ")
-            print(statistics_functions[1](data[key]), "\n")
+            print(str(round(statistics_functions[0](data[key]),2)), ", ")
+            print(str(round(statistics_functions[1](data[key]), 2)), "\n")
 
 
 def print_joint_details(data, features, statistic_functions, statistic_functions_names):
     values1 = data[features[0]]
     values2 = data[features[1]]
 
-    for name, func in zip(statistic_functions_names, statistic_functions):
-        print(name, ": ", func(values1, values2))
+    for stat_name, func in zip(statistic_functions_names, statistic_functions):
+        print(stat_name, ": ", str(round(func(values1, values2), 2)))
