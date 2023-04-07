@@ -56,4 +56,4 @@ def print_joint_details(data, features, statistic_functions, statistic_functions
     values2 = data[features[1]]
 
     for stat_name, func in zip(statistic_functions_names, statistic_functions):
-        print(stat_name + ": " + str(round(func(values1, values2), 2)))
+        print(stat_name + ": " + "%.2f" % func(values1, values2))
