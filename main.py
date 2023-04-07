@@ -23,24 +23,24 @@ def solveq1(london_data):
     data.print_details(holiday, features, stat_funcs)
     data.print_joint_details(holiday, cov_features, [s.calc_covariance], joint_stat_name)
 
-    print("All: \n")
+    print("All: ")
     data.print_details(london_data, features, stat_funcs)
-    data.print_joint_details(data, cov_features, [s.calc_covariance], joint_stat_name)
-    print("\n")
+    data.print_joint_details(london_data, cov_features, [s.calc_covariance], joint_stat_name)
+    print("")
 
 
 def solveq2(winter_data):
-    print("Question 2: \n")
+    print("Question 2: ")
     stat_funcs = [s.calc_mean, s.calc_stdv]
 
     holiday, non_holiday = data.filter_by_feature(winter_data, "is_holiday", {1})
 
-    print("If t1<=13.0, then:\n")
-    s.population_statistics("Winter holiday records:", holiday, "t1", "cnt", 13, False, stat_funcs)
-    s.population_statistics("Winter weekday records:", non_holiday, "t1", "cnt", 13, False, stat_funcs)
-    print("\nIf t1>13.0, then:\n")
-    s.population_statistics("Winter holiday records:", holiday, "t1", "cnt", 13, True, stat_funcs)
-    s.population_statistics("Winter weekday records:", non_holiday, "t1", "cnt", 13, True, stat_funcs)
+    print("If t1<=13.0, then:")
+    s.population_statistics("Winter holiday records", holiday, "t1", "cnt", 13, False, stat_funcs)
+    s.population_statistics("Winter weekday records", non_holiday, "t1", "cnt", 13, False, stat_funcs)
+    print("If t1>13.0, then:")
+    s.population_statistics("Winter holiday records", holiday, "t1", "cnt", 13, True, stat_funcs)
+    s.population_statistics("Winter weekday records", non_holiday, "t1", "cnt", 13, True, stat_funcs)
 
 
 def main(argv):
