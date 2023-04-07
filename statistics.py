@@ -31,7 +31,7 @@ def population_statistics(feature_description, data, treatment, target, threshol
        :param statistic_functions: list of statistical functions
        :return:
        """
-    values = {x for x in data[treatment] if (is_above and x > threshold) or x <= threshold}
+    values = {x for x in data[treatment] if (is_above and x > threshold) or (not is_above and x <= threshold)}
     data1, data2 = filter_by_feature(data, treatment, values)
 
     print(feature_description)
