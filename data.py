@@ -18,9 +18,10 @@ def load_data(path, features):
     return data
 
 
-def copy_row(data1, data, row_index):
-    for key in data1.keys():
-        data1[key].append(data[key][row_index])
+def add_row(dictionary, data, row_index):
+    for key in dictionary.keys():
+        dictionary[key].append(data[key][row_index])
+    return dictionary
 
 
 def filter_by_feature(data, feature, values):
@@ -33,9 +34,9 @@ def filter_by_feature(data, feature, values):
 
     for i, value in enumerate(data[feature]):
         if value in values:
-            copy_row(data1, data, i)
+            data1 = add_row(data1, data, i)
         else:
-            copy_row(data2, data, i)
+            data2 = add_row(data2, data, i)
 
     return data1, data2
 
