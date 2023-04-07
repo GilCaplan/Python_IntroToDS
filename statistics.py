@@ -34,5 +34,5 @@ def population_statistics(feature_description, data, treatment, target, threshol
     values = {x for x in data[treatment] if (is_above and x > threshold) or x <= threshold}
     data1, data2 = filter_by_feature(data, treatment, values)
 
-    print(feature_description, end=":\n")
+    print(feature_description)
     print_details(data1, [target], statistic_functions)
