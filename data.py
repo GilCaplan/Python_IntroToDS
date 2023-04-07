@@ -18,21 +18,24 @@ def load_data(path, features):
     return data
 
 
-def transfer_row(data1, data2, row_index):
+def copy_row(data1, data, row_index):
     for key in data1.keys():
-        data2[key].append(data1[key].pop(row_index))
+        data1[key].append(data[key][row_index])
 
 
 def filter_by_feature(data, feature, values):
-    data1 = dict(data)
+    data1 = {}
     data2 = {}
 
     for key in data.keys():
+        data1[key] = []
         data2[key] = []
 
     for i, value in enumerate(data[feature]):
         if value in values:
-            transfer_row(data1, data2, i)
+            copy_row(data1, data, i)
+        else:
+            copy_row(data2, data, i)
 
     return data1, data2
 
