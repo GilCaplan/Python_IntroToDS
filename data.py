@@ -1,4 +1,4 @@
-import pandas as p
+import pandas
 
 
 def load_data(path, features):
@@ -8,7 +8,7 @@ def load_data(path, features):
     :param features: relevant columns from the table
     :return: dictionary with keys which are features and the values are lists for each feature (the column)
     """
-    df = p.read_cvs(path)
+    df = pandas.read_csv(path)
     data = df.to_dict(orient="list")
 
     for key in data.copy():

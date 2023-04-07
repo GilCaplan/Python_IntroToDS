@@ -8,7 +8,7 @@ def calc_mean(values):
 
 def calc_stdv(values):
     mean = calc_mean(values)
-    return sqrt(sum(map(lambda x: (x-mean)**2), values) / (len(values)-1))
+    return sqrt(sum(map(lambda x: (x-mean)**2, values)) / (len(values)-1))
 
 
 def calc_covariance(values1, values2):
@@ -20,7 +20,8 @@ def calc_covariance(values1, values2):
 
 def population_statistics(feature_description, data, treatment, target, threshold, is_above, statistic_functions):
     """
-       Prints statistical information on filtered data above/under threshold of treatment, according to the target feature
+       Prints statistical information on filtered data above/under threshold of treatment,
+       according to the target feature
        :param feature_description: string which describes the feature
        :param data: dictionary where keys are the features and values are lists of values of the features
        :param treatment: name of a feature
