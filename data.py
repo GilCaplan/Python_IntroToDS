@@ -40,17 +40,16 @@ def filter_by_feature(data, feature, values):
     return data1, data2
 
 
-def print_details(data, features, statistics_functions):
-    for key in data:
-        if key in features:
-            print(key, ": ")
-            print(str(round(statistics_functions[0](data[key]), 2)), ", ")
-            print(str(round(statistics_functions[1](data[key]), 2)), "\n")
+def print_details(data, features, statistic_functions):
+    for feature in features:
+        feature_line = feature + ": "
+
+        for stat_function in statistic_functions:
+            feature_line += ("%.2f" % stat_function(data[feature])) + ", "
+
+        print(feature_line.rstrip(", "))
 
 
 def print_joint_details(data, features, statistic_functions, statistic_functions_names):
-    values1 = data[features[0]]
-    values2 = data[features[1]]
-
-    for stat_name, func in zip(statistic_functions_names, statistic_functions):
-        print(stat_name, ": ", str(round(func(values1, values2), 2)))
+    for stat_name, stat_function in zip(statistic_functions_names, statistic_functions):
+        print(stat_name + (": %.2f" % stat_function(data[features[0]], data[features[1]])))

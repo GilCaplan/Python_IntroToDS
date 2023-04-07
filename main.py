@@ -4,7 +4,7 @@ import statistics as s
 
 
 def solveq1(london_data):
-    print("Question 1:\n")
+    print("Question 1:")
 
     features = ["hum", "t1", "cnt"]
 
@@ -12,14 +12,14 @@ def solveq1(london_data):
     stat_funcs = [s.calc_mean, s.calc_stdv]
     joint_stat_name = ["Cov(t1, cnt)"]
 
-    print("Summer \n")
+    print("Summer")
 
     summer_data = data.filter_by_feature(london_data, "season", {1})[0]
     data.print_details(summer_data, features, stat_funcs)
     data.print_joint_details(summer_data, cov_features, [s.calc_covariance], joint_stat_name)
 
     print("Holiday: \n")
-    holiday = data.filter_by_feature(london_data, "holiday", {1})[0]
+    holiday = data.filter_by_feature(london_data, "is_holiday", {1})[0]
     data.print_details(holiday, features, stat_funcs)
     data.print_joint_details(holiday, cov_features, [s.calc_covariance], joint_stat_name)
 
