@@ -26,6 +26,7 @@ def solveq1(london_data):
     print("All: ")
     data.print_details(london_data, features, stat_funcs)
     data.print_joint_details(london_data, cov_features, [s.calc_covariance], joint_stat_name)
+    # data.print_joint_details(london_data, ["t1", "season"], [s.calc_covariance], "Cov(season, t1)")
     print()
 
 
