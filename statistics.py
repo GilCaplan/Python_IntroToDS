@@ -8,7 +8,7 @@ def calc_mean(values):
 
 def calc_stdv(values):
     mean = calc_mean(values)
-    return sqrt(sum(map(lambda x: (x-mean)**2, values)) / (len(values)-1))
+    return sqrt(sum(map(lambda x: (x - mean) ** 2, values)) / (len(values) - 1))
 
 
 def calc_covariance(values1, values2):
@@ -31,5 +31,6 @@ def population_statistics(feature_desc, data, trt, trg, thr, is_abv, stats_funcs
        :param stats_funcs: list of statistical functions
        :return:
     """
-    d1 = filter_by_feature(data, trt, {x for x in data[trt] if (is_abv and x > thr) or (not is_abv and x <= thr)})[0]
-    print(feature_desc + "\n" + trg + ": "+"%.2f" % stats_funcs[0](d1[trg])+","+"%.2f" % stats_funcs[1](d1[trg]))
+
+    fd = dict((k, [x for i, x in enumerate(data[k]) if not (is_abv ^ (data[trt][i] > thr))]) for k in data.keys())
+    print(feature_desc + "\n" + trg + ": " + "%.2f" % stats_funcs[0](fd[trg]) + ", %.2f" % stats_funcs[1](fd[trg]))
