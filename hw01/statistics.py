@@ -27,11 +27,11 @@ def calc_covariance(val1, val2):
     return sum(map(lambda x: (x[0]-calc_mean(val1))*(x[1]-calc_mean(val2)), list(zip(val1, val2)))) / (len(val1)-1)
 
 
-def population_statistics(feature_des, data, treatment, target, threshold, is_above, statistic_functions):
+def population_statistics(feature_description, data, treatment, target, threshold, is_above, statistic_functions):
     """
        Prints statistical information on filtered data above/under threshold of treatment,
        according to the target feature
-       :param feature_des: string which describes the feature
+       :param feature_description: string which describes the feature
        :param data: dictionary where keys are the features and values are lists of values of the features
        :param treatment: name of a feature
        :param target: name of a feature
@@ -41,4 +41,4 @@ def population_statistics(feature_des, data, treatment, target, threshold, is_ab
        :return:
        """
     f = dict((k, [x for i, x in enumerate(data[k]) if not (is_above ^ (data[treatment][i] > threshold))]) for k in data)
-    print(feature_des + "\n" + target + ": %.2f, %.2f" % tuple(statistic_functions[i](f[target]) for i in [0, 1]))
+    print(f"{feature_description}\n{target}: %.2f, %.2f" % tuple(statistic_functions[i](f[target]) for i in [0, 1]))
