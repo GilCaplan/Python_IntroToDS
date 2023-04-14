@@ -19,12 +19,28 @@ def load_data(path, features):
 
 
 def add_row(dictionary, data, row_index):
+    """
+    adds the row in row_index from data to the dictionary
+    :param dictionary: given dictionary with keys (strings), values (lists), we are adding values here
+    :param data: dictionary with all the data
+    :param row_index: the index of the row that we want to use
+    :return: dictionary after changes were applied
+    """
     for key in dictionary.keys():
         dictionary[key].append(data[key][row_index])
     return dictionary
 
 
 def filter_by_feature(data, feature, values):
+    """
+    Function filters the rows from the table (which are located in data) into two new dictionaries, first one if
+    the column values in the table (data[feature] which is the column) are located in the given values list, Otherwise
+    to the second dictionary.
+    :param data: given data with all the information
+    :param feature: a column from the table (a key from data)
+    :param values: list of values that we want to check against
+    :return: data filtered into two dictionaries if data[feature] rows are in values or not
+    """
     data1 = {}
     data2 = {}
 
@@ -42,6 +58,13 @@ def filter_by_feature(data, feature, values):
 
 
 def print_details(data, features, statistic_functions):
+    """
+    The function prints statistic calculations based on the given features from the data dictionary
+    :param data:  containing all data from the table, or a filtered version
+    :param features: list of features from the table (key's from data)
+    :param statistic_functions: statistic tools that we can use to do different calculations
+    :return:
+    """
     for feature in features:
         feature_line = feature + ": "
 
@@ -52,6 +75,14 @@ def print_details(data, features, statistic_functions):
 
 
 def print_joint_details(data, features, statistic_functions, statistic_functions_names):
+    """
+    Function prints calculations based of certain columns together from the table using the statistic tools
+    :param data: dictionary containing data from the table or a filtered version.
+    :param features: features from the table (key's from data)
+    :param statistic_functions: statistic functions used for certain calculations
+    :param statistic_functions_names: names of the statistical tools (methods)
+    :return:
+    """
     values1 = data[features[0]]
     values2 = data[features[1]]
 
