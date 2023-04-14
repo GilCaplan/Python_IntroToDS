@@ -14,8 +14,7 @@ def calc_stdv(values):
     """
     Function returns the stdv calculation result from the given list (values)
     """
-    mean = calc_mean(values)
-    return sqrt(sum(map(lambda x: (x-mean)**2, values)) / (len(values)-1))
+    return sqrt(sum(map(lambda x: (x-calc_mean(values))**2, values)) / (len(values)-1))
 
 
 def calc_covariance(values1, values2):
