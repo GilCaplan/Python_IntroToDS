@@ -8,7 +8,7 @@ def calc_mean(values):
 
 def calc_stdv(values):
     mean = calc_mean(values)
-    return sqrt(sum(map(lambda x: (x-mean)**2, values)) / (len(values)-1))
+    return sqrt(sum(map(lambda x: (x - mean) ** 2, values)) / (len(values) - 1))
 
 
 def calc_covariance(values1, values2):
@@ -24,12 +24,13 @@ def population_statistics(feature_des, data, treatment, target, threshold, is_ab
        according to the target feature
        :param feature_des: string which describes the feature
        :param data: dictionary where keys are the features and values are lists of values of the features
-       :param treatment: name of a feature
-       :param target: name of a feature
-       :param threshold: critical value of the treatment feature
-       :param is_above: indicates if we need rows that are above or under the threshold with respect to treatment
+       :param treatment: name of a feature, treatment
+       :param target: name of a feature, target
+       :param threshold: critical value of the treatment feature, threshold
+       :param is_above: indicates if we need rows that are above or under the threshold with respect to treatment, above
        :param statistic_functions: list of statistical functions
        :return:
-       """
+    """
+
     f = dict((k, [x for i, x in enumerate(data[k]) if not (is_above ^ (data[treatment][i] > threshold))]) for k in data)
-    print(feature_des + "\n" + target + ": %.2f, %.2f" % tuple(statistic_functions[i](f[target]) for i in [0, 1]))
+    print(feature_description + "\n"+target + ": %.2f, %.2f" % tuple(statistic_functions[i](f[target]) for i in [0, 1]))
