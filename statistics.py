@@ -18,11 +18,11 @@ def calc_covariance(values1, values2):
     return sum(map(lambda x: (x[0] - mean1) * (x[1] - mean2), list(zip(values1, values2)))) / (len(values1) - 1)
 
 
-def population_statistics(feature_description, data, treatment, target, threshold, is_above, statistic_functions):
+def population_statistics(feature_des, data, treatment, target, threshold, is_above, statistic_functions):
     """
        Prints statistical information on filtered data above/under threshold of treatment,
        according to the target feature
-       :param feature_description: string which describes the feature
+       :param feature_des: string which describes the feature
        :param data: dictionary where keys are the features and values are lists of values of the features
        :param treatment: name of a feature, treatment
        :param target: name of a feature, target
