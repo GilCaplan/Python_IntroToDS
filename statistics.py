@@ -1,17 +1,30 @@
 from math import sqrt
-from data import filter_by_feature, print_details
 
 
 def calc_mean(values):
+    """
+    Function calculates the mean (average)
+    :param values: list of numbers
+    :return: mean value
+    """
     return sum(values) / len(values)
 
 
 def calc_stdv(values):
+    """
+    Function returns the stdv calculation result from the given list (values)
+    """
     mean = calc_mean(values)
     return sqrt(sum(map(lambda x: (x-mean)**2, values)) / (len(values)-1))
 
 
 def calc_covariance(values1, values2):
+    """
+    Function returns the covariance calculation between the lists values1 and values2
+    :param values1: first list of values, numbers
+    :param values2: second list of values, numbers
+    :return: Covariance calculation between values1 to values2
+    """
     mean1 = calc_mean(values1)
     mean2 = calc_mean(values2)
 
