@@ -17,7 +17,6 @@ def solveq1(london_data):
     summer_data = data.filter_by_feature(london_data, "season", [1])[0]
     data.print_details(summer_data, features, stat_funcs)
     data.print_joint_details(summer_data, cov_features, [s.calc_covariance], joint_stat_name)
-
     print("Holiday: ")
     holiday = data.filter_by_feature(london_data, "is_holiday", [1])[0]
     data.print_details(holiday, features, stat_funcs)
