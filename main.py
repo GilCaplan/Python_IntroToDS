@@ -45,7 +45,6 @@ def solveq2(winter_data):
 
 
 def main(argv):
-    # your_path = "C:\Users\USER\PycharmProjects\pythonProject"
     london_data = data.load_data(argv[1], argv[2].split(", "))
     solveq1(london_data)
     solveq2(data.filter_by_feature(london_data, "season", [3])[0])
@@ -54,5 +53,3 @@ def main(argv):
 if __name__ == '__main__':
     main(sys.argv)
 
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
