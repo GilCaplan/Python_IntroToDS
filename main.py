@@ -34,12 +34,14 @@ def solveq2(winter_data):
 
     holiday, non_holiday = data.filter_by_feature(winter_data, "is_holiday", [1])
 
+    hol_cnt1 = {feature: holiday[feature] for feature in ["t1", "cnt"]}
+    non_hol_cnt1 = {feature: non_holiday[feature] for feature in ["t1", "cnt"]}
     print("If t1<=13.0, then:")
-    s.population_statistics("Winter holiday records", holiday, "t1", "cnt", 13, False, stat_funcs)
-    s.population_statistics("Winter weekday records", non_holiday, "t1", "cnt", 13, False, stat_funcs)
+    s.population_statistics("Winter holiday records", hol_cnt1, "t1", "cnt", 13, False, stat_funcs)
+    s.population_statistics("Winter weekday records", non_hol_cnt1, "t1", "cnt", 13, False, stat_funcs)
     print("If t1>13.0, then:")
-    s.population_statistics("Winter holiday records", holiday, "t1", "cnt", 13, True, stat_funcs)
-    s.population_statistics("Winter weekday records", non_holiday, "t1", "cnt", 13, True, stat_funcs)
+    s.population_statistics("Winter holiday records", hol_cnt1, "t1", "cnt", 13, True, stat_funcs)
+    s.population_statistics("Winter weekday records", non_hol_cnt1, "t1", "cnt", 13, True, stat_funcs)
 
 
 def main(argv):
