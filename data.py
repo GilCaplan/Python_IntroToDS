@@ -46,7 +46,7 @@ def print_details(data, features, statistic_functions):
         feature_line = feature + ": "
 
         for stat_function in statistic_functions:
-            feature_line += ("%.2f" % stat_function(data[feature])) + ", "
+            feature_line += str(round(stat_function(data[feature]), 2)) + ", "
 
         print(feature_line.rstrip(", "))
 
