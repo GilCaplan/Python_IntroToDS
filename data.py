@@ -18,19 +18,6 @@ def load_data(path, features):
     return data
 
 
-def add_row(dictionary, data, row_index):
-    """
-    adds the row in row_index from data to the dictionary
-    :param dictionary: given dictionary with keys (strings), values (lists), we are adding values here
-    :param data: dictionary with all the data
-    :param row_index: the index of the row that we want to use
-    :return: dictionary after changes were applied
-    """
-    for key in dictionary.keys():
-        dictionary[key].append(data[key][row_index])
-    return dictionary
-
-
 def filter_by_feature(data, feature, values):
     """
     Function filters the rows from the table (which are located in data) into two new dictionaries, first one if
@@ -41,18 +28,8 @@ def filter_by_feature(data, feature, values):
     :param values: list of values that we want to check against
     :return: data filtered into two dictionaries if data[feature] rows are in values or not
     """
-    data1 = {}
-    data2 = {}
-
-    for key in data.keys():
-        data1[key] = []
-        data2[key] = []
-
-    for i, value in enumerate(data[feature]):
-        if value in values:
-            data1 = add_row(data1, data, i)
-        else:
-            data2 = add_row(data2, data, i)
+    data1 = {key: [data[key][i] for i, val in enumerate(data[feature]) if val in values] for key in data.keys()}
+    data2 = {key: [data[key][i] for i, val in enumerate(data[feature]) if val not in values] for key in data.keys()}
 
     return data1, data2
 
@@ -83,8 +60,5 @@ def print_joint_details(data, features, statistic_functions, statistic_functions
     :param statistic_functions_names: names of the statistical tools (methods)
     :return:
     """
-    values1 = data[features[0]]
-    values2 = data[features[1]]
-
     for stat_name, func in zip(statistic_functions_names, statistic_functions):
-        print(stat_name + ": " + "%.2f" % func(values1, values2))
+        print(stat_name + ": " + "%.2f" % func(data[features[0]], data[features[1]]))
