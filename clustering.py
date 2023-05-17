@@ -24,7 +24,7 @@ def choose_initial_centroids(data, k):
     return data[indices]
 
 
-# ====================
+# ==================== Gil
 def transform_data(df, features):
     """
     Performs the following transformations on df:
@@ -35,8 +35,15 @@ def transform_data(df, features):
     :param features: list of 2 features from the dataframe
     :return: transformed data as numpy array of shape (n, 2)
     """
-    pass
-    # return data
+    new_df = df[features]
+    #  make a new data frame with only the features given
+    x_mins = min(new_df[features])
+    sum_0 = sum(new_df[features[0]])
+    sum_1 = sum(new_df[features[1]])
+    new_df[features[0]].apply(lambda x: (x-x_mins)/sum_0)
+    new_df[features[1]].apply(lambda x: (x - x_mins) / sum_1)
+
+    return new_df
 
 
 def kmeans(data, k):

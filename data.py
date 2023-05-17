@@ -23,3 +23,17 @@ def add_new_columns(df):
     df['t_diff'] = df.apply(lambda r: r['t1'] - r['t2'])
     return df
 
+def data_analysis(df):
+    """prints statistics on transformed df"""
+
+    dic = df.to_dict(orient="list")
+
+
+    # 6 סייבה
+
+    # 7
+    # 1. Gil, 5 features (different from each other) that have the highest absolute correlation
+
+    # 2. uhhhh, 5 features (different from each other) that have the lowest absolute correlation
+    return
+
