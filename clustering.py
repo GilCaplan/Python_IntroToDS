@@ -76,10 +76,9 @@ def dist(x, y):
     Euclidean distance between vectors x, y
     :param x: numpy array of size n
     :param y: numpy array of size n
-    :return: the euclidean distance
+    :return: the Euclidean distance
     """
-    pass
-    # return distance
+    return sum([n1[i]**2 - n2[i]**2 for n1, n2, i in enumerate(zip(x, y))])**0.5
 
 
 def assign_to_clusters(data, centroids):
