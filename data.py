@@ -36,6 +36,10 @@ def data_analysis(df):
     # 7
     # 1. Gil, 5 features (different from each other) that have the highest absolute correlation
 
+    features = df.columns.values
+    corr_df = df.drop(columns=['timestamp','season_name']).corr()
+    dic = {f1+" "+f2:  corr_df.loc(f1, f2) for f1, f2 in zip(corr_df.columns.values, corr_df.rows.values) if f1!=f2}
+    # make dictionary with all feature corr values, need to fix cause doesn't work
     # 2. uhhhh, 5 features (different from each other) that have the lowest absolute correlation
-    return
+    return dic
 

@@ -4,7 +4,8 @@ import sys
 
 def main(argv):
     london_data = dt.load_data(argv[1])
-    dt.add_new_columns(london_data)
+    df = dt.add_new_columns(london_data)
+    dt.data_analysis(df)
 
 
 if __name__ == '__main__':
