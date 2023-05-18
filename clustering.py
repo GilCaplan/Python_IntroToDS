@@ -37,11 +37,12 @@ def transform_data(df, features):
     """
     new_df = df[features]
     #  make a new data frame with only the features given
-    x_mins = min(new_df[features])
+    x_min0 = min(new_df[features[0]])
+    x_min1 = min(new_df[features[1]])
     sum_0 = sum(new_df[features[0]])
     sum_1 = sum(new_df[features[1]])
-    new_df[features[0]].apply(lambda x: (x-x_mins)/sum_0)
-    new_df[features[1]].apply(lambda x: (x - x_mins) / sum_1)
+    new_df[features[0]].apply(lambda x: (x - x_min0)/sum_0)
+    new_df[features[1]].apply(lambda x: (x - x_min1) / sum_1)
 
     return new_df
 
@@ -78,7 +79,7 @@ def dist(x, y):
     :param y: numpy array of size n
     :return: the Euclidean distance
     """
-    return sum([n1[i]**2 - n2[i]**2 for n1, n2, i in enumerate(zip(x, y))])**0.5
+    return sum([(n1[i] - n2[i])**2 for n1, n2, i in enumerate(zip(x, y))])**0.5
 
 def assign_to_clusters(data, centroids):
     """

@@ -32,8 +32,7 @@ def data_analysis(df):
     # 6 סייבה
 
     # 7
-    # 1. Gil, 5 features (different from each other) that have the highest absolute correlation
-
+    # 1. Gil, 5 features (different from each other) that have the highest/lowest absolute correlation
     corr_df = df.drop(columns=['timestamp', 'season_name']).corr()
     # gets correlations of columns and put's it in a new df
     features = corr_df.columns.values
@@ -44,17 +43,16 @@ def data_analysis(df):
 
     # made dictionary with all correlation values without repeating features, now need to find top 5
     features_sorted = list(sorted(corr_dic.keys(), key=lambda x: corr_dic[x], reverse=True))
-    print("max vals: ")
+    print("Highest correlated are:")
     for i in range(5):
         # print 5 max values
         print(features_sorted[i] + " with " + "%.2f" % corr_dic[features_sorted[i]])
-    print("min vals")
+    print("Lowest correlated are:")
     for i in range(5):
         # print 5 min values
         j = len(corr_dic) - i - 1
         print(features_sorted[j] + " with " + "%.2f" % corr_dic[features_sorted[j]])
 
-    # make dictionary with all feature corr values, need to fix cause doesn't work
-    # 2. uhhhh, 5 features (different from each other) that have the lowest absolute correlation
+    # 8. uhhhh
     return dic
 
