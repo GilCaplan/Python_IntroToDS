@@ -43,8 +43,8 @@ def transform_data(df, features):
     sum_1 = sum(new_df[features[1]])
     new_df[features[0]].apply(lambda x: (x - x_min0)/sum_0)
     new_df[features[1]].apply(lambda x: (x - x_min1) / sum_1)
-
-    return new_df
+    transformed_data = np.array(new_df)
+    return transformed_data
 
 
 def kmeans(data, k):
