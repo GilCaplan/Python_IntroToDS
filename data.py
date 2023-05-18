@@ -46,9 +46,11 @@ def data_analysis(df):
     features_sorted = list(sorted(corr_dic.keys(), key=lambda x: corr_dic[x], reverse=True))
     print("max vals: ")
     for i in range(5):
+        # print 5 max values
         print(features_sorted[i] + " with " + "%.2f" % corr_dic[features_sorted[i]])
     print("min vals")
     for i in range(5):
+        # print 5 min values
         j = len(corr_dic) - i - 1
         print(features_sorted[j] + " with " + "%.2f" % corr_dic[features_sorted[j]])
 
