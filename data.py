@@ -40,17 +40,17 @@ def data_analysis(df):
     corr_dic = {}
     for i, feature in enumerate(features):
         for x in range(i):
-            corr_dic[str(feature) + " " + str(features[x])] = abs(corr_df[feature][features[x]])
+            corr_dic['('+str(feature) + ", " + str(features[x])+')'] = abs(corr_df[feature][features[x]])
 
     # made dictionary with all correlation values without repeating features, now need to find top 5
     features_sorted = list(sorted(corr_dic.keys(), key=lambda x: corr_dic[x], reverse=True))
     print("max vals: ")
     for i in range(5):
-        print(features_sorted[i] + " " + "%.2f" % corr_dic[features_sorted[i]])
+        print(features_sorted[i] + " with " + "%.2f" % corr_dic[features_sorted[i]])
     print("min vals")
     for i in range(5):
         j = len(corr_dic) - i - 1
-        print(features_sorted[j] + " " + "%.2f" % corr_dic[features_sorted[j]])
+        print(features_sorted[j] + " with " + "%.2f" % corr_dic[features_sorted[j]])
 
     # make dictionary with all feature corr values, need to fix cause doesn't work
     # 2. uhhhh, 5 features (different from each other) that have the lowest absolute correlation
