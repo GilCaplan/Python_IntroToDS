@@ -1,10 +1,12 @@
 import pandas as pd
 from datetime import datetime
 
+
 def load_data(path):
     """reads and returns panda dataframe"""
     df = pd.read_csv(path)
     return df
+
 
 def add_new_columns(df):
     """adds columns to df and returns the new df"""
@@ -12,15 +14,15 @@ def add_new_columns(df):
     df['season_name'] = df['season'].apply(lambda x: ['spring', 'summer', 'fall', 'winter'][x])
 
     # 3 Gil
-    df['Hour'] = df['timestamp'].apply(lambda x: datetime.strptime(x, "%d/%m/%Y %H:%M:%S").hour)# 0-23
-    df['Day'] = df['timestamp'].apply(lambda x: datetime.strptime(x, "%d/%m/%Y %H:%M:%S").day)# 1-31
-    df['Month'] = df['timestamp'].apply(lambda x: datetime.strptime(x, "%d/%m/%Y %H:%M:%S").month)# 1-12
-    df['Year'] = df['timestamp'].apply(lambda x: datetime.strptime(x, "%d/%m/%Y %H:%M:%S").year)# 2015-17
+    df['Hour'] = df['timestamp'].apply(lambda x: datetime.strptime(x, "%d/%m/%Y %H:%M").hour)# 0-23
+    df['Day'] = df['timestamp'].apply(lambda x: datetime.strptime(x, "%d/%m/%Y %H:%M").day)# 1-31
+    df['Month'] = df['timestamp'].apply(lambda x: datetime.strptime(x, "%d/%m/%Y %H:%M").month)# 1-12
+    df['Year'] = df['timestamp'].apply(lambda x: datetime.strptime(x, "%d/%m/%Y %H:%M").year)# 2015-17
 
     # 4 סייבה
 
     # 5 Gil
-    df['t_diff'] = df.apply(lambda r: r['t1'] - r['t2'])
+    df['t_diff'] = df.apply(lambda row: row['t1'] - row['t2'], axis=1)
     return df
 
 def data_analysis(df):

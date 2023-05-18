@@ -80,7 +80,6 @@ def dist(x, y):
     """
     return sum([n1[i]**2 - n2[i]**2 for n1, n2, i in enumerate(zip(x, y))])**0.5
 
-
 def assign_to_clusters(data, centroids):
     """
     Assign each data point to a cluster based on current centroids
