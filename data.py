@@ -42,7 +42,8 @@ def data_analysis(df):
     # gets correlations of columns and put's it in a new df
     features = corr_df.columns.values
     y = lambda feature, x: abs(corr_df[feature][features[x]])
-    corr_dic = {f'({feature}, {features[x]})': y(feature, x) for i, feature in enumerate(features) for x in range(i)}
+    key = lambda feature, x: f'({feature}, {features[x]})'
+    corr_dic = {key(feature, x): y(feature, x) for i, feature in enumerate(features) for x in range(i)}
 
     # corr_dic = {} # erase this if you think the previous two liner is good uhhh
     # for i, feature in enumerate(features):# shortened to one line
@@ -61,4 +62,3 @@ def data_analysis(df):
 
     # 8. uhhhh
     return dic
-
