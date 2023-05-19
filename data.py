@@ -14,10 +14,14 @@ def add_new_columns(df):
     df['season_name'] = df['season'].apply(lambda x: ['spring', 'summer', 'fall', 'winter'][x])
 
     # 3 Gil
-    df['Hour'] = df['timestamp'].apply(lambda x: datetime.strptime(x, "%d/%m/%Y %H:%M").hour)# 0-23
-    df['Day'] = df['timestamp'].apply(lambda x: datetime.strptime(x, "%d/%m/%Y %H:%M").day)# 1-31
-    df['Month'] = df['timestamp'].apply(lambda x: datetime.strptime(x, "%d/%m/%Y %H:%M").month)# 1-12
-    df['Year'] = df['timestamp'].apply(lambda x: datetime.strptime(x, "%d/%m/%Y %H:%M").year)# 2015-17
+    df['Hour'] = df['timestamp'].apply(lambda x: datetime.strptime(x, "%d/%m/%Y %H:%M").hour)
+    # 0-23
+    df['Day'] = df['timestamp'].apply(lambda x: datetime.strptime(x, "%d/%m/%Y %H:%M").day)
+    # 1-31
+    df['Month'] = df['timestamp'].apply(lambda x: datetime.strptime(x, "%d/%m/%Y %H:%M").month)
+    # 1-12
+    df['Year'] = df['timestamp'].apply(lambda x: datetime.strptime(x, "%d/%m/%Y %H:%M").year)
+    # 2015-17
 
     # 4 סייבה
 
@@ -32,14 +36,17 @@ def data_analysis(df):
     # 6 סייבה
 
     # 7
-    # 1. Gil, 5 features (different from each other) that have the highest/lowest absolute correlation
+    # Gil, 5 features (different from each other) that have the highest/lowest absolute correlation
     corr_df = df.drop(columns=['timestamp', 'season_name']).corr()
     # gets correlations of columns and put's it in a new df
     features = corr_df.columns.values
-    corr_dic = {}
-    for i, feature in enumerate(features):
-        for x in range(i):
-            corr_dic['('+str(feature) + ", " + str(features[x])+')'] = abs(corr_df[feature][features[x]])
+    y = lambda feature, x: abs(corr_df[feature][features[x]])
+    corr_dic = {f'({feature}, {features[x]})': y(feature, x) for i, feature in enumerate(features) for x in range(i)}
+
+    # corr_dic = {} # erase this if you think the previous two liner is good uhhh
+    # for i, feature in enumerate(features):# shortened to one line
+    #     for x in range(i):
+    #         corr_dic['('+str(feature) + ", " + str(features[x])+')'] = abs(corr_df[feature][features[x]])
 
     # made dictionary with all correlation values without repeating features, now need to find top 5
     features_sorted = list(sorted(corr_dic.keys(), key=lambda x: corr_dic[x], reverse=True))

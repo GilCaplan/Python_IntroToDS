@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+
 np.random.seed(2)
 
 
@@ -37,14 +38,18 @@ def transform_data(df, features):
     """
     new_df = df[features]
     #  make a new data frame with only the features given
-    x_min0 = min(new_df[features[0]])
-    x_min1 = min(new_df[features[1]])
-    sum_0 = sum(new_df[features[0]])
-    sum_1 = sum(new_df[features[1]])
-    new_df[features[0]].apply(lambda x: (x - x_min0)/sum_0)
-    new_df[features[1]].apply(lambda x: (x - x_min1) / sum_1)
-    transformed_data = np.array(new_df)
-    return transformed_data
+
+    x_min = [min(new_df[feature]) for feature in features]
+    x_sum = [sum(new_df[feature]) for feature in features]
+    # get min and sum for each column
+
+    scale = lambda x, i: (x - x_min[i]) / x_sum[i]
+    # scale numbers in columns using lambda expression, where I being the index
+
+    new_df[features[0]].apply(lambda x: scale(x, 0))
+    new_df[features[1]].apply(lambda x: scale(x, 1))
+
+    return np.array(new_df)
 
 
 def kmeans(data, k):
@@ -79,7 +84,7 @@ def dist(x, y):
     :param y: numpy array of size n
     :return: the Euclidean distance
     """
-    return sum([(n1[i] - n2[i])**2 for n1, n2, i in enumerate(zip(x, y))])**0.5
+    return sum([(n1[i] - n2[i]) ** 2 for n1, n2, i in enumerate(zip(x, y))]) ** 0.5
 
 
 def assign_to_clusters(data, centroids):
@@ -103,4 +108,3 @@ def recompute_centroids(data, labels, k):
     """
     pass
     # return centroids
-
