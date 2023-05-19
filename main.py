@@ -4,7 +4,7 @@ import clustering
 
 
 def main(argv):
-    # just to run functions so i can test em :)
+    # just to run functions so I can test em :)
     london_data = dt.load_data(argv[1])
     df = dt.add_new_columns(london_data)
     dt.data_analysis(df)
