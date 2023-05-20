@@ -21,11 +21,10 @@ def choose_initial_centroids(data, k):
     :return: numpy array of k random items from dataset
     """
     n = data.shape[0]
-    indices = np.random.choice(range(n), k, replace=False)
-    return data[indices]
+    initial_centroids = np.random.choice(range(n), k, replace=False)
+    return data[initial_centroids]
 
 
-# ==================== Gil
 def transform_data(df, features):
     """
     Performs the following transformations on df:
@@ -58,23 +57,29 @@ def distance_matrix(data, centroids):
     distances = np.empty((data.shape[0], centroids.shape[0]))
     # ill leave it like that or until ill find a way to abuse broadcasting of numpy
 
+    # btw we don't need to go through the whole table because we know the table is symmetrical
+
     for i in range(data.shape[0]):
         for j in range(centroids.shape[0]):
             distances[i][j] = dist(data[i], centroids[j])
 
     return distances
 
+
 def compute_centroid(cluster):
     return np.sum(cluster, axis=0) / cluster.shape[0]
+
 
 def compute_centroids(clusters):
     return np.array([compute_centroid(cluster) for cluster in clusters])
 
+
 def assign_labels(data, centroids):
     return np.argmin(distance_matrix(data, centroids), axis=1)
 
+
 def get_clusters(data, labels, k):
-    # clusters have different sizes so i made it a list of np arrays
+    # clusters have different sizes therefore I made it a list of np arrays
     return [np.array(data[labels == i]) for i in range(k)]
 
 
@@ -120,7 +125,6 @@ def dist(x, y):
     """
 
     return np.sqrt(np.sum(np.power(x-y, 2)))
-    # return np.sum([(n1[i] - n2[i]) ** 2 for n1, n2, i in enumerate(zip(x, y))]) ** 0.5
 
 
 def assign_to_clusters(data, centroids):
