@@ -69,7 +69,7 @@ def data_analysis(df):
         j = len(corr_dic) - i - 1
         print(features_sorted[j] + " with " + "%.6f" % corr_dic[features_sorted[j]])
 
-    # 8. uhhhhhh
+    # 8. uhhhh
 
     seasons = df.groupby('season_name')
 
