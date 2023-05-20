@@ -10,19 +10,16 @@ def load_data(path):
 
 def add_new_columns(df):
     """adds columns to df and returns the new df"""
-    # 2 Gil
+
     df['season_name'] = df['season'].apply(lambda x: ['spring', 'summer', 'fall', 'winter'][x])
 
-    # 3 Gil
     df['Hour'] = df['timestamp'].apply(lambda x: get_time(x).hour)
     df['Day'] = df['timestamp'].apply(lambda x: get_time(x).day)
     df['Month'] = df['timestamp'].apply(lambda x: get_time(x).month)
     df['Year'] = df['timestamp'].apply(lambda x: get_time(x).year)
 
-    # 4 סייבה
     df['is_weekend_holiday'] = df.apply(lambda row: 2 * row['is_holiday'] + row['is_weekend'], axis=1)
 
-    # 5 Gil
     df['t_diff'] = df.apply(lambda row: row['t1'] - row['t2'], axis=1)
     return df
 
@@ -54,11 +51,6 @@ def data_analysis(df):
     key = lambda feature, x: f'({feature}, {features[x]})'
     corr_dic = {key(feature, x): y(feature, x) for i, feature in enumerate(features) for x in range(i)}
 
-    # corr_dic = {} # erase this if you think the previous two liner is good uhhh
-    # for i, feature in enumerate(features):# shortened to one line
-    #     for x in range(i):
-    #         corr_dic['('+str(feature) + ", " + str(features[x])+')'] = abs(corr_df[feature][features[x]])
-
     # made dictionary with all correlation values without repeating features, now need to find top 5
     features_sorted = list(sorted(corr_dic.keys(), key=lambda x: corr_dic[x], reverse=True))
     print("Highest correlated are:")
@@ -69,13 +61,9 @@ def data_analysis(df):
         j = len(corr_dic) - i - 1
         print(features_sorted[j] + " with " + "%.6f" % corr_dic[features_sorted[j]])
 
-    # 8. uhhhh
-
     seasons = df.groupby('season_name')
 
     for season in seasons:
         print(season[0] + " average t_diff is " + "%.2f" % season[1]['t_diff'].mean())
 
     print("All average t_diff is " + "%.2f" % df['t_diff'].mean())
-
-    return dic # function needs to return something?
