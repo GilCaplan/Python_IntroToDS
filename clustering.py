@@ -38,6 +38,7 @@ def transform_data(df, features):
     """
     new_df = df[features]
     #  make a new data frame with only the features given
+    #  we need to read csv file again for new df
 
     x_min = [min(new_df[feature]) for feature in features]
     x_sum = [sum(new_df[feature]) for feature in features]
@@ -49,7 +50,32 @@ def transform_data(df, features):
     new_df[features[0]].apply(lambda x: scale(x, 0))
     new_df[features[1]].apply(lambda x: scale(x, 1))
 
+    # adding noise to data here?
     return np.array(new_df)
+
+
+def distance_matrix(data, centroids):
+    distances = np.empty((data.shape[0], centroids.shape[0]))
+    # ill leave it like that or until ill find a way to abuse broadcasting of numpy
+
+    for i in range(data.shape[0]):
+        for j in range(centroids.shape[0]):
+            distances[i][j] = dist(data[i], centroids[j])
+
+    return distances
+
+def compute_centroid(cluster):
+    return np.sum(cluster, axis=0) / cluster.shape[0]
+
+def compute_centroids(clusters):
+    return np.array([compute_centroid(cluster) for cluster in clusters])
+
+def assign_labels(data, centroids):
+    return np.argmin(distance_matrix(data, centroids), axis=1)
+
+def get_clusters(data, labels, k):
+    # clusters have different sizes so i made it a list of np arrays
+    return [np.array(data[labels == i]) for i in range(k)]
 
 
 def kmeans(data, k):
@@ -61,8 +87,16 @@ def kmeans(data, k):
     * labels - numpy array of size n, where each entry is the predicted label (cluster number)
     * centroids - numpy array of shape (k, 2), centroid for each cluster.
     """
-    pass
-    # return labels, centroids
+
+    prev_centroids = None
+    current_centroids = choose_initial_centroids(data, k)
+
+    while not np.array_equal(prev_centroids, current_centroids):
+        labels = assign_labels(data, current_centroids)
+        prev_centroids = current_centroids
+        current_centroids = compute_centroids(get_clusters(data, labels, k))
+
+    return labels, current_centroids
 
 
 def visualize_results(data, labels, centroids, path):
@@ -84,7 +118,9 @@ def dist(x, y):
     :param y: numpy array of size n
     :return: the Euclidean distance
     """
-    return sum([(n1[i] - n2[i]) ** 2 for n1, n2, i in enumerate(zip(x, y))]) ** 0.5
+
+    return np.sqrt(np.sum(np.power(x-y, 2)))
+    # return np.sum([(n1[i] - n2[i]) ** 2 for n1, n2, i in enumerate(zip(x, y))]) ** 0.5
 
 
 def assign_to_clusters(data, centroids):
