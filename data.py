@@ -33,20 +33,17 @@ def get_time(x):
 
 def data_analysis(df):
     """prints statistics on transformed df"""
-
-    dic = df.to_dict(orient="list")
     # 6 סייבה
     print("describe output:")
     print(df.describe().to_string())
     print()
     print("corr output:")
-    corr = df.corr()
-    print(corr.to_string())
+    corr_df = df.drop(columns=['timestamp', 'season_name']).corr()
+    print(corr_df.to_string())
     print()
 
     # 7
     # Gil, 5 features (different from each other) that have the highest/lowest absolute correlation
-    corr_df = df.drop(columns=['timestamp', 'season_name']).corr()
     # gets correlations of columns and put's it in a new df
     features = corr_df.columns.values
     y = lambda feature, x: abs(corr_df[feature][features[x]])
@@ -70,12 +67,9 @@ def data_analysis(df):
         print(features_sorted[j] + " with " + "%.6f" % corr_dic[features_sorted[j]])
 
     # 8. uhhhh
-
     seasons = df.groupby('season_name')
 
     for season in seasons:
         print(season[0] + " average t_diff is " + "%.2f" % season[1]['t_diff'].mean())
 
     print("All average t_diff is " + "%.2f" % df['t_diff'].mean())
-
-    return dic # function needs to return something?
