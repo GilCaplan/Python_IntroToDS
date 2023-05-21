@@ -116,7 +116,7 @@ def visualize_results(data, labels, centroids, path):
     x = np.linspace(min(data[1]), max(data[1]), 200)
     # can change afterward to what we need
 
-    plt.plot(*x)
+    plt.plot(*x)# hi
     plt.title("Results for kmeans with k = " f'{max(labels)}')
     # maybe -1 of we count from 0 and not 1 ? can check when we test the code
     plt.xlabel("cnt")
