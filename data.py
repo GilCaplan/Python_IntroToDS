@@ -37,16 +37,15 @@ def data_analysis(df):
     print(df.describe().to_string())
     print()
     print("corr output:")
-    corr = df.corr()
+    corr = df.drop(columns=['timestamp', 'season_name']).corr()
     print(corr.to_string())
     print()
 
     # 7
     # Gil, 5 features (different from each other) that have the highest/lowest absolute correlation
-    corr_df = df.drop(columns=['timestamp', 'season_name']).corr()
     # gets correlations of columns and put's it in a new df
-    features = corr_df.columns.values
-    y = lambda feature, x: abs(corr_df[feature][features[x]])
+    features = corr.columns.values
+    y = lambda feature, x: abs(corr[feature][features[x]])
     # I think in recommendation they meant to make (feature, features[x]) ?
     key = lambda feature, x: f'({feature}, {features[x]})'
     corr_dic = {key(feature, x): y(feature, x) for i, feature in enumerate(features) for x in range(i)}
