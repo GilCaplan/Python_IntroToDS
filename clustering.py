@@ -39,17 +39,14 @@ def transform_data(df, features):
     #  make a new data frame with only the features given
     #  we need to read csv file again for new df
 
-    x_min = [min(new_df[feature]) for feature in features]
-    x_sum = [sum(new_df[feature]) for feature in features]
+    min_values = new_df.min()
+    max_values = new_df.max()
+
+    scale_df = (new_df - min_values) / (max_values - min_values)
     # get min and sum for each column
 
-    scale = lambda x, i: (x - x_min[i]) / x_sum[i]
-    # scale numbers in columns using lambda expression, where I being the index
-
-    new_df[features[0]].apply(lambda x: scale(x, 0))
-    new_df[features[1]].apply(lambda x: scale(x, 1))
     # adding noise to data here?
-    return add_noise(np.array(new_df))
+    return add_noise(np.array(scale_df))
 
 
 def kmeans(data, k):
@@ -122,6 +119,7 @@ def assign_to_clusters(data, centroids):
     pass
     # return labels
 
+
 def distance_matrix(data, centroids):
     distances = np.empty((data.shape[0], centroids.shape[0]))
     # ill leave it like that or until ill find a way to abuse broadcasting of numpy
@@ -136,7 +134,7 @@ def distance_matrix(data, centroids):
 
 
 def recompute_centroid(cluster):
-    return np.sum(cluster, axis=0) / cluster.shape[0]
+    return np.sum(cluster) / cluster.shape[0]
 
 
 def get_clusters(data, labels, k):
