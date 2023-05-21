@@ -118,12 +118,15 @@ def visualize_results(data, labels, centroids, path):
 
     plt.plot(*x)
     plt.title("Results for kmeans with k = " f'{max(labels)}')
+    # maybe -1 of we count from 0 and not 1 ? can check when we test the code
     plt.xlabel("cnt")
     plt.ylabel("hum")
+
     for i, label in enumerate(labels):
         plt.scatter(data[i][0], data[i][1], c=colors[label])
+
     for centroid in centroids:
-        plt.scatter(centroid[0], centroid[1], color='black', s=20, marker='X')
+        plt.scatter(centroid[0], centroid[1], c='black', s=20, marker='X')
 
     plt.show()
     plt.savefig(path)
