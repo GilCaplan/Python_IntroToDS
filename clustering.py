@@ -112,8 +112,21 @@ def visualize_results(data, labels, centroids, path):
     :param centroids: the final centroids of kmeans, as numpy array of shape (k, 2)
     :param path: path to save the figure to.
     """
-    pass
-    # plt.savefig(path)
+    colors = ['red', 'blue', 'green', 'grey', 'yellow']
+    x = np.linspace(min(data[1]), max(data[1]), 200)
+    # can change afterward to what we need
+
+    plt.plot(*x)
+    # plt.scatter(data)
+    plt.xlabel("cnt")
+    plt.ylabel("hum")
+    for i, label in enumerate(labels):
+        plt.scatter(data[i][0], data[i][1], c=colors[label])
+    for centroid in centroids:
+        plt.scatter(centroid[0], centroid[1], color= 'black', s=20, marker='X')
+
+    plt.show()
+    plt.savefig(path)
 
 
 def dist(x, y):
@@ -146,5 +159,6 @@ def recompute_centroids(data, labels, k):
     :param k: number of clusters
     :return: numpy array of shape (k, 2)
     """
+    
     pass
     # return centroids
