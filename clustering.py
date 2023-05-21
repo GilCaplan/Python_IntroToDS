@@ -117,13 +117,13 @@ def visualize_results(data, labels, centroids, path):
     # can change afterward to what we need
 
     plt.plot(*x)
-    # plt.scatter(data)
+    plt.title("Results for kmeans with k = " f'{max(labels)}')
     plt.xlabel("cnt")
     plt.ylabel("hum")
     for i, label in enumerate(labels):
         plt.scatter(data[i][0], data[i][1], c=colors[label])
     for centroid in centroids:
-        plt.scatter(centroid[0], centroid[1], color= 'black', s=20, marker='X')
+        plt.scatter(centroid[0], centroid[1], color='black', s=20, marker='X')
 
     plt.show()
     plt.savefig(path)
