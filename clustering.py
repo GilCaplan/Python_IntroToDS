@@ -77,24 +77,25 @@ def visualize_results(data, labels, centroids, path):
     :param centroids: the final centroids of kmeans, as numpy array of shape (k, 2)
     :param path: path to save the figure to.
     """
-    colors = ['purple', 'yellow', 'red', 'blue', 'green', 'grey']
-    x = np.linspace(min(data[1]), max(data[1]), 200)
-    # can change afterward to what we need
 
-    plt.plot(*x)
+    colors = np.array(['purple', 'yellow', 'red', 'blue', 'green', 'grey'])
+    plt.figure(figsize=(8, 8))
+
+    # x = np.linspace(min(data[0]), max(data[0]), 200)
+    # can change afterward to what we need
+    # plt.plot(*x)
+
     plt.title("Results for kmeans with k = " f'{max(labels)+1}')
-    # maybe -1 of we count from 0 and not 1 ? can check when we test the code
     plt.xlabel("cnt")
     plt.ylabel("hum")
 
-    for i, label in enumerate(labels):
-        plt.scatter(data[i][0], data[i][1], c=colors[label])
+    plt.scatter(data.T[0], data.T[1], color=colors[labels], s=20)
 
     for centroid in centroids:
-        plt.scatter(centroid[0], centroid[1], c='black', s=20, marker='X')
+        plt.scatter(centroid[0], centroid[1], color='white', edgecolors='black', s=30, marker='*')
 
     plt.show()
-    plt.savefig(path)
+    # plt.savefig(path)
 
 
 def dist(x, y):
