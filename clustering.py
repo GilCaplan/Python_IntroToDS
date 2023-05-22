@@ -45,7 +45,6 @@ def transform_data(df, features):
     scale_df = (new_df - min_values) / (max_values - min_values)
     # get min and sum for each column
 
-    # adding noise to data here?
     return add_noise(np.array(scale_df))
 
 
