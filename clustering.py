@@ -37,7 +37,7 @@ def transform_data(df, features):
     """
     new_df = df[features]
     #  make a new data frame with only the features given
-    #  we need to read csv file again for new df
+    #  we need to read csv file again for new df`
 
     min_values = new_df.min()
     max_values = new_df.max()
@@ -116,7 +116,7 @@ def assign_to_clusters(data, centroids):
     :param centroids: current centroids as numpy array of shape (k, 2)
     :return: numpy array of size n
     """
-    pass
+
     # return labels
 
 
