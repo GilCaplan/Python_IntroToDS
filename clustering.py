@@ -97,7 +97,9 @@ def visualize_results(data, labels, centroids, path):
         plt.scatter(centroid[0], centroid[1], color='white', edgecolors='black', s=30, marker='*')
 
     plt.show()
-    # plt.savefig(path)
+
+    # UNCOMMENT BEFORE TURNING IN
+    plt.savefig(path)
 
 
 def dist(x, y):

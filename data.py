@@ -52,18 +52,22 @@ def data_analysis(df):
     # # I think in recommendation they meant to make (feature, features[x]) ?
     # key = lambda feature, x: f'({feature}, {features[x]})'
 
-    corr_dic = {(f1, f2): abs(corr[f1][f2]) for i, f1 in enumerate(features) for f2 in features[:i]}
+    # i switched f1 and f2 cuz they showed in different order in output.txt
+    corr_dic = {(f1, f2): abs(corr[f1][f2]) for i, f2 in enumerate(features) for f1 in features[:i]}
 
     # made dictionary with all correlation values without repeating features, now need to find top 5
 
     features_sorted = sorted(corr_dic.keys(), key=lambda x: corr_dic[x], reverse=True)
 
-    print("Highest correlated are:")
+    print("Highest correlated are: ")
     for i in range(5):
-        print(str(features_sorted[i]) + " with " + "%.6f" % corr_dic[features_sorted[i]])
-    print("Lowest correlated are:")
+        print(str(i+1) + ". " + str(features_sorted[i]) + " with " + "%.6f" % corr_dic[features_sorted[i]])
+    print()
+
+    print("Lowest correlated are: ")
     for i in range(5):
-        print(str(features_sorted[-1-i]) + " with " + "%.6f" % corr_dic[features_sorted[-1-i]])
+        print(str(i+1) + ". " + str(features_sorted[-1-i]) + " with " + "%.6f" % corr_dic[features_sorted[-1-i]])
+    print()
 
     seasons = df.groupby('season_name')
 
@@ -71,3 +75,4 @@ def data_analysis(df):
         print(season[0] + " average t_diff is " + "%.2f" % season[1]['t_diff'].mean())
 
     print("All average t_diff is " + "%.2f" % df['t_diff'].mean())
+    print()
