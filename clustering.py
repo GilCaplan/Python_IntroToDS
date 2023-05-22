@@ -121,7 +121,6 @@ def assign_to_clusters(data, centroids):
 
 def distance_matrix(data, centroids):
     distances = np.empty((data.shape[0], centroids.shape[0]))
-    # ???
 
     for i in range(data.shape[0]):
         for j in range(centroids.shape[0]):
@@ -148,4 +147,5 @@ def recompute_centroids(data, labels, k):
     :return: numpy array of shape (k, 2)
     """
 
-    return np.array([recompute_centroid(cluster) for cluster in get_clusters(data, labels, k)])\
+    x=  np.array([recompute_centroid(cluster) for cluster in get_clusters(data, labels, k)])
+    return x
