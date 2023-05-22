@@ -39,17 +39,14 @@ def transform_data(df, features):
     #  make a new data frame with only the features given
     #  we need to read csv file again for new df
 
-    x_min = [min(new_df[feature]) for feature in features]
-    x_sum = [sum(new_df[feature]) for feature in features]
+    min_values = new_df.min()
+    max_values = new_df.max()
+
+    scale_df = (new_df - min_values) / (max_values - min_values)
     # get min and sum for each column
 
-    scale = lambda x, i: (x - x_min[i]) / x_sum[i]
-    # scale numbers in columns using lambda expression, where I being the index
-
-    new_df[features[0]].apply(lambda x: scale(x, 0))
-    new_df[features[1]].apply(lambda x: scale(x, 1))
     # adding noise to data here?
-    return add_noise(np.array(new_df))
+    return add_noise(np.array(scale_df))
 
 
 def kmeans(data, k):
@@ -81,12 +78,12 @@ def visualize_results(data, labels, centroids, path):
     :param centroids: the final centroids of kmeans, as numpy array of shape (k, 2)
     :param path: path to save the figure to.
     """
-    colors = ['red', 'blue', 'green', 'grey', 'yellow']
+    colors = ['purple', 'yellow', 'red', 'blue', 'green', 'grey']
     x = np.linspace(min(data[1]), max(data[1]), 200)
     # can change afterward to what we need
 
     plt.plot(*x)
-    plt.title("Results for kmeans with k = " f'{max(labels)}')
+    plt.title("Results for kmeans with k = " f'{max(labels)+1}')
     # maybe -1 of we count from 0 and not 1 ? can check when we test the code
     plt.xlabel("cnt")
     plt.ylabel("hum")
