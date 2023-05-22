@@ -37,15 +37,14 @@ def transform_data(df, features):
     """
     new_df = df[features]
     #  make a new data frame with only the features given
-    #  we need to read csv file again for new df`
+    #  we need to read csv file again for new df
 
     min_values = new_df.min()
-    max_values = new_df.max()
+    sum_values = new_df.sum()
 
-    scale_df = (new_df - min_values) / (max_values - min_values)
+    scale_df = (new_df - min_values) / sum_values
     # get min and sum for each column
 
-    # adding noise to data here?
     return add_noise(np.array(scale_df))
 
 
@@ -60,10 +59,12 @@ def kmeans(data, k):
     """
 
     prev_centroids = None
+    labels = None
     current_centroids = choose_initial_centroids(data, k)
 
     while not np.array_equal(prev_centroids, current_centroids):
         labels = assign_to_clusters(data, current_centroids)
+
         prev_centroids = current_centroids
         current_centroids = recompute_centroids(data, labels, k)
 
@@ -78,23 +79,26 @@ def visualize_results(data, labels, centroids, path):
     :param centroids: the final centroids of kmeans, as numpy array of shape (k, 2)
     :param path: path to save the figure to.
     """
-    colors = ['red', 'blue', 'green', 'grey', 'yellow']
-    x = np.linspace(min(data[1]), max(data[1]), 200)
-    # can change afterward to what we need
 
-    plt.plot(*x)
-    plt.title("Results for kmeans with k = " f'{max(labels)}')
-    # maybe -1 of we count from 0 and not 1 ? can check when we test the code
+    colors = np.array(['purple', 'yellow', 'red', 'blue', 'green', 'grey'])
+    plt.figure(figsize=(8, 8))
+
+    # x = np.linspace(min(data[0]), max(data[0]), 200)
+    # can change afterward to what we need
+    # plt.plot(*x)
+
+    plt.title("Results for kmeans with k = " f'{max(labels)+1}')
     plt.xlabel("cnt")
     plt.ylabel("hum")
 
-    for i, label in enumerate(labels):
-        plt.scatter(data[i][0], data[i][1], c=colors[label])
+    plt.scatter(data.T[0], data.T[1], color=colors[labels], s=20)
 
     for centroid in centroids:
-        plt.scatter(centroid[0], centroid[1], c='black', s=20, marker='X')
+        plt.scatter(centroid[0], centroid[1], color='white', edgecolors='black', s=30, marker='*')
 
     plt.show()
+
+    # UNCOMMENT BEFORE TURNING IN
     plt.savefig(path)
 
 
@@ -117,14 +121,11 @@ def assign_to_clusters(data, centroids):
     :return: numpy array of size n
     """
 
-    # return labels
+    return np.argmin(distance_matrix(data, centroids), axis=1)
 
 
 def distance_matrix(data, centroids):
     distances = np.empty((data.shape[0], centroids.shape[0]))
-    # ill leave it like that or until ill find a way to abuse broadcasting of numpy
-
-    # btw we don't need to go through the whole table because we know the table is symmetrical
 
     for i in range(data.shape[0]):
         for j in range(centroids.shape[0]):
@@ -134,7 +135,7 @@ def distance_matrix(data, centroids):
 
 
 def recompute_centroid(cluster):
-    return np.sum(cluster) / cluster.shape[0]
+    return np.sum(cluster, axis=0) / cluster.shape[0]
 
 
 def get_clusters(data, labels, k):
