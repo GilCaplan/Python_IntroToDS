@@ -124,9 +124,6 @@ def assign_to_clusters(data, centroids):
 
 def distance_matrix(data, centroids):
     distances = np.empty((data.shape[0], centroids.shape[0]))
-    # ill leave it like that or until ill find a way to abuse broadcasting of numpy
-
-    # btw we don't need to go through the whole table because we know the table is symmetrical
 
     for i in range(data.shape[0]):
         for j in range(centroids.shape[0]):
@@ -153,4 +150,4 @@ def recompute_centroids(data, labels, k):
     :return: numpy array of shape (k, 2)
     """
 
-    return np.array([recompute_centroid(cluster) for cluster in get_clusters(data, labels, k)])
+    return np.array([recompute_centroid(cluster) for cluster in get_clusters(data, labels, k)])\
