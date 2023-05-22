@@ -24,7 +24,7 @@ def main(argv):
         labels, centroids = clustering.kmeans(data, k)
 
         # what path?????
-        clustering.visualize_results(data, labels, centroids, None)
+        clustering.visualize_results(data, labels, centroids, 'C:\\Users\\USER\\PycharmProjects\\HW02\\clusters.png')
         print(np.array_str(centroids, precision=3, suppress_small=True))
         print()
 

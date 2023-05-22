@@ -21,6 +21,7 @@ def add_new_columns(df):
     df['is_weekend_holiday'] = df.apply(lambda row: 2 * row['is_holiday'] + row['is_weekend'], axis=1)
 
     df['t_diff'] = df.apply(lambda row: row['t2'] - row['t1'], axis=1)
+
     return df
 
 
@@ -31,7 +32,6 @@ def get_time(x):
 def data_analysis(df):
     """prints statistics on transformed df"""
 
-    # 6 סייבה
     print("describe output:")
     print(df.describe().to_string())
     print()
@@ -43,16 +43,14 @@ def data_analysis(df):
     # df_dict = df.to_dict(orient="list")
 
     # 7
-    # Gil, 5 features (different from each other) that have the highest/lowest absolute correlation
+    # 5 features (different from each other) that have the highest/lowest absolute correlation
     # gets correlations of columns and put's it in a new df
 
     features = corr.columns.values
 
     # y = lambda feature, x: abs(corr[feature][features[x]])
-    # # I think in recommendation they meant to make (feature, features[x]) ?
     # key = lambda feature, x: f'({feature}, {features[x]})'
 
-    # i switched f1 and f2 cuz they showed in different order in output.txt
     corr_dic = {(f1, f2): abs(corr[f1][f2]) for i, f2 in enumerate(features) for f1 in features[:i]}
 
     # made dictionary with all correlation values without repeating features, now need to find top 5

@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 
 np.random.seed(2)
@@ -62,6 +61,7 @@ def kmeans(data, k):
     labels = None
     current_centroids = choose_initial_centroids(data, k)
 
+    # loop until prev centroids equal current because that's when we will finish the clustering
     while not np.array_equal(prev_centroids, current_centroids):
         labels = assign_to_clusters(data, current_centroids)
 
@@ -83,10 +83,6 @@ def visualize_results(data, labels, centroids, path):
     colors = np.array(['purple', 'yellow', 'red', 'blue', 'green', 'grey'])
     plt.figure(figsize=(8, 8))
 
-    # x = np.linspace(min(data[0]), max(data[0]), 200)
-    # can change afterward to what we need
-    # plt.plot(*x)
-
     plt.title("Results for kmeans with k = " f'{max(labels)+1}')
     plt.xlabel("cnt")
     plt.ylabel("hum")
@@ -98,7 +94,6 @@ def visualize_results(data, labels, centroids, path):
 
     plt.show()
 
-    # UNCOMMENT BEFORE TURNING IN
     plt.savefig(path)
 
 
