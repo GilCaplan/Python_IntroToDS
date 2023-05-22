@@ -119,8 +119,8 @@ def assign_to_clusters(data, centroids):
     :param centroids: current centroids as numpy array of shape (k, 2)
     :return: numpy array of size n
     """
-    pass
-    # return labels
+    return np.argmin(distance_matrix(data, centroids), axis=1)
+
 
 def distance_matrix(data, centroids):
     distances = np.empty((data.shape[0], centroids.shape[0]))
