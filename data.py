@@ -20,7 +20,7 @@ def add_new_columns(df):
 
     df['is_weekend_holiday'] = df.apply(lambda row: 2 * row['is_holiday'] + row['is_weekend'], axis=1)
 
-    df['t_diff'] = df.apply(lambda row: row['t1'] - row['t2'], axis=1)
+    df['t_diff'] = df.apply(lambda row: row['t2'] - row['t1'], axis=1)
     return df
 
 

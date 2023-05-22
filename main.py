@@ -17,9 +17,9 @@ def main(argv):
     df = dt.load_data(argv[1])
     data = clustering.transform_data(df, ["cnt", "hum"])
 
-    for k in [2]:
+    for k in [2, 3, 5]:
         print("k = " + str(k))
-        labels, centroids = clustering.kmeans(data, 2)
+        labels, centroids = clustering.kmeans(data, k)
         clustering.visualize_results(data, labels, centroids, None)
         print(np.array_str(centroids, precision=3, suppress_small=True))
 

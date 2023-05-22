@@ -40,9 +40,9 @@ def transform_data(df, features):
     #  we need to read csv file again for new df
 
     min_values = new_df.min()
-    max_values = new_df.max()
+    sum_values = new_df.sum()
 
-    scale_df = (new_df - min_values) / (max_values - min_values)
+    scale_df = (new_df - min_values) / sum_values
     # get min and sum for each column
 
     return add_noise(np.array(scale_df))
@@ -59,10 +59,12 @@ def kmeans(data, k):
     """
 
     prev_centroids = None
+    labels = None
     current_centroids = choose_initial_centroids(data, k)
 
     while not np.array_equal(prev_centroids, current_centroids):
         labels = assign_to_clusters(data, current_centroids)
+
         prev_centroids = current_centroids
         current_centroids = recompute_centroids(data, labels, k)
 
@@ -148,5 +150,4 @@ def recompute_centroids(data, labels, k):
     :return: numpy array of shape (k, 2)
     """
 
-    x=  np.array([recompute_centroid(cluster) for cluster in get_clusters(data, labels, k)])
-    return x
+    return np.array([recompute_centroid(cluster) for cluster in get_clusters(data, labels, k)])
