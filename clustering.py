@@ -94,7 +94,7 @@ def visualize_results(data, labels, centroids, path):
 
     plt.show()
 
-    plt.savefig(path)
+    # plt.savefig(path)
 
 
 def dist(x, y):
@@ -121,6 +121,11 @@ def assign_to_clusters(data, centroids):
 
 def distance_matrix(data, centroids):
     distances = np.empty((data.shape[0], centroids.shape[0]))
+
+   # x = data[:, np.newaxis]
+   # y = centroids[:, np.newaxis]
+
+    # return dist(data[:, np.newaxis], centroids[:, np.newaxis])
 
     for i in range(data.shape[0]):
         for j in range(centroids.shape[0]):
