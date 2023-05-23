@@ -28,8 +28,7 @@ def main(argv):
         print(np.array_str(centroids, precision=3, suppress_small=True))
         print()
         finish = time.time()
-        print(finish-start)
-        # hellobb
+        print('time: ', finish-start)
 
 
 if __name__ == '__main__':
