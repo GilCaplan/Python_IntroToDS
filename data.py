@@ -40,15 +40,10 @@ def data_analysis(df):
     print(corr.to_string())
     print()
 
-    # 7
     # 5 features (different from each other) that have the highest/lowest absolute correlation
     # gets correlations of columns and put's it in a new df
 
     features = corr.columns.values
-
-    # y = lambda feature, x: abs(corr[feature][features[x]])
-    # key = lambda feature, x: f'({feature}, {features[x]})'
-
     corr_dic = {(f1, f2): abs(corr[f1][f2]) for i, f2 in enumerate(features) for f1 in features[:i]}
 
     # made dictionary with all correlation values without repeating features, now need to find top 5

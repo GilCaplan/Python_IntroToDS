@@ -60,15 +60,14 @@ def kmeans(data, k):
     prev_centroids = None
     labels = None
     current_centroids = choose_initial_centroids(data, k)
-    cnt_iterations = 0
+
     # loop until prev centroids equal current because that's when we will finish the clustering
     while not np.array_equal(prev_centroids, current_centroids):
         labels = assign_to_clusters(data, current_centroids)
 
         prev_centroids = current_centroids
         current_centroids = recompute_centroids(data, labels, k)
-        cnt_iterations += 1
-    print("iterations: ",  str(cnt_iterations))
+
     return labels, current_centroids
 
 
@@ -93,9 +92,8 @@ def visualize_results(data, labels, centroids, path):
     for centroid in centroids:
         plt.scatter(centroid[0], centroid[1], color='white', edgecolors='black', s=30, marker='*')
 
+    plt.savefig(path)
     plt.show()
-
-    # plt.savefig(path)
 
 
 def dist(x, y):
@@ -122,11 +120,6 @@ def assign_to_clusters(data, centroids):
 
 def distance_matrix(data, centroids):
     distances = np.empty((data.shape[0], centroids.shape[0]))
-
-   # x = data[:, np.newaxis]
-   # y = centroids[:, np.newaxis]
-
-    # return dist(data[:, np.newaxis], centroids[:, np.newaxis])
 
     for i in range(data.shape[0]):
         for j in range(centroids.shape[0]):
