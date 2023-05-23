@@ -40,8 +40,6 @@ def data_analysis(df):
     print(corr.to_string())
     print()
 
-    # df_dict = df.to_dict(orient="list")
-
     # 7
     # 5 features (different from each other) that have the highest/lowest absolute correlation
     # gets correlations of columns and put's it in a new df

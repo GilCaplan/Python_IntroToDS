@@ -2,9 +2,9 @@ import data as dt
 import sys
 import clustering
 import numpy as np
-
-
+import time
 def main(argv):
+    start = time.time()
     # just to run functions in order to test em :)
 
     # part 1
@@ -27,6 +27,8 @@ def main(argv):
         clustering.visualize_results(data, labels, centroids, 'C:\\Users\\USER\\PycharmProjects\\HW02\\clusters.png')
         print(np.array_str(centroids, precision=3, suppress_small=True))
         print()
+        finish = time.time()
+        print(finish-start)
 
 
 if __name__ == '__main__':
