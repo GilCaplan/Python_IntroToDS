@@ -17,7 +17,9 @@ def main(argv):
         print("k = " + str(k))
         labels, centroids = clustering.kmeans(data, k)
 
-        clustering.visualize_results(data, labels, centroids, r"\home\student\hw2\plots")
+        path = r"home\student\hw2\plot"+str(k)+".png"
+
+        clustering.visualize_results(data, labels, centroids, path)
         print(np.array_str(centroids, precision=3, suppress_small=True))
         print()
 

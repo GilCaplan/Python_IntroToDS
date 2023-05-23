@@ -80,14 +80,15 @@ def visualize_results(data, labels, centroids, path):
     :param path: path to save the figure to.
     """
 
-    colors = np.array(['purple', 'yellow', 'red', 'blue', 'green', 'grey'])
-    plt.figure(figsize=(8, 8))
+    colors = np.random.rand(max(labels)+1, 3)
+    label_colors = colors[labels]
 
+    plt.figure(figsize=(8, 8))
     plt.title("Results for kmeans with k = " f'{max(labels)+1}')
     plt.xlabel("cnt")
     plt.ylabel("hum")
 
-    plt.scatter(data.T[0], data.T[1], color=colors[labels], s=20)
+    plt.scatter(data.T[0], data.T[1], color=label_colors, s=20)
 
     for centroid in centroids:
         plt.scatter(centroid[0], centroid[1], color='white', edgecolors='black', s=30, marker='*')
