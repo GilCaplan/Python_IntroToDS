@@ -26,6 +26,7 @@ def add_new_columns(df):
 
 
 def get_time(x):
+    """ returns datatime object by dd/mm/yyyy H:M"""
     return datetime.strptime(x, "%d/%m/%Y %H:%M")
 
 
@@ -41,13 +42,12 @@ def data_analysis(df):
     print()
 
     # 5 features (different from each other) that have the highest/lowest absolute correlation
-    # gets correlations of columns and put's it in a new df
-
+    # gets correlations of columns between feature to feature and places it in corr_dic
     features = corr.columns.values
     corr_dic = {(f1, f2): abs(corr[f1][f2]) for i, f2 in enumerate(features) for f1 in features[:i]}
+    # made dictionary with all correlation values without repeating features.
 
-    # made dictionary with all correlation values without repeating features, now need to find top 5
-
+    # sort the dictionary from biggest to smallest
     features_sorted = sorted(corr_dic.keys(), key=lambda x: corr_dic[x], reverse=True)
 
     print("Highest correlated are: ")

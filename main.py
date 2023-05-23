@@ -2,7 +2,7 @@ import data as dt
 import sys
 import clustering
 import numpy as np
-import time
+
 def main(argv):
     print("Part A: ")
     london_data = dt.load_data(argv[1])
@@ -11,12 +11,15 @@ def main(argv):
 
     print("Part B: ")
     df = dt.load_data(argv[1])
+    # scale data of columns cnt, hum to [0,1]
     data = clustering.transform_data(df, ["cnt", "hum"])
 
     for k in [2, 3, 5]:
         print("k = " + str(k))
+        # calculate the labels of each data point & centroids with kmeans
         labels, centroids = clustering.kmeans(data, k)
 
+        # plot our results to a graph
         clustering.visualize_results(data, labels, centroids, r"\home\student\hw2\plots")
         print(np.array_str(centroids, precision=3, suppress_small=True))
         print()

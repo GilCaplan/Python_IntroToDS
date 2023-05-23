@@ -20,6 +20,7 @@ def choose_initial_centroids(data, k):
     :return: numpy array of k random items from dataset
     """
     n = data.shape[0]
+    # choose k random initial centroids
     initial_centroids = np.random.choice(range(n), k, replace=False)
     return data[initial_centroids]
 
@@ -42,7 +43,7 @@ def transform_data(df, features):
     sum_values = new_df.sum()
 
     scale_df = (new_df - min_values) / sum_values
-    # get min and sum for each column
+    # scale each entry in the df
 
     return add_noise(np.array(scale_df))
 
@@ -65,7 +66,9 @@ def kmeans(data, k):
     while not np.array_equal(prev_centroids, current_centroids):
         labels = assign_to_clusters(data, current_centroids)
 
+        # set current centroids to previous so we can check if the algorithm converged.
         prev_centroids = current_centroids
+        # find new centroids after calculated new labels for all the datapoints
         current_centroids = recompute_centroids(data, labels, k)
 
     return labels, current_centroids
@@ -114,26 +117,27 @@ def assign_to_clusters(data, centroids):
     :param centroids: current centroids as numpy array of shape (k, 2)
     :return: numpy array of size n
     """
-
     return np.argmin(distance_matrix(data, centroids), axis=1)
 
 
 def distance_matrix(data, centroids):
     distances = np.empty((data.shape[0], centroids.shape[0]))
-
+    # set empty np array with the current size
     for i in range(data.shape[0]):
         for j in range(centroids.shape[0]):
+            # calculate distances between each point to each centroid
             distances[i][j] = dist(data[i], centroids[j])
 
     return distances
 
 
 def recompute_centroid(cluster):
+    """find centroid for given cluster, sum of all the points divided by the amount of points"""
     return np.sum(cluster, axis=0) / cluster.shape[0]
 
 
 def get_clusters(data, labels, k):
-    # clusters have different sizes therefore I made it a list of np arrays
+    """clusters have different sizes therefore a list of np arrays is returned"""
     return [np.array(data[labels == i]) for i in range(k)]
 
 
@@ -145,5 +149,4 @@ def recompute_centroids(data, labels, k):
     :param k: number of clusters
     :return: numpy array of shape (k, 2)
     """
-
     return np.array([recompute_centroid(cluster) for cluster in get_clusters(data, labels, k)])
