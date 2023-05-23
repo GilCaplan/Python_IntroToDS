@@ -60,14 +60,15 @@ def kmeans(data, k):
     prev_centroids = None
     labels = None
     current_centroids = choose_initial_centroids(data, k)
-
+    cnt_iterations = 0
     # loop until prev centroids equal current because that's when we will finish the clustering
     while not np.array_equal(prev_centroids, current_centroids):
         labels = assign_to_clusters(data, current_centroids)
 
         prev_centroids = current_centroids
         current_centroids = recompute_centroids(data, labels, k)
-
+        cnt_iterations += 1
+    print("iterations: ",  str(cnt_iterations))
     return labels, current_centroids
 
 
