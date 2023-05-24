@@ -11,15 +11,14 @@ def main(argv):
 
     print("Part B: ")
     df = dt.load_data(argv[1])
-    # scale data of columns cnt, hum to [0,1]
     data = clustering.transform_data(df, ["cnt", "hum"])
+    # scale data of columns cnt, hum to [0,1]
 
     for k in [2, 3, 5]:
         print("k = " + str(k))
-        # calculate the labels of each data point & centroids with kmeans
         labels, centroids = clustering.kmeans(data, k)
+        # calculate the labels of each data point & centroids with kmeans
 
-        # plot our results to a graph
         clustering.visualize_results(data, labels, centroids, r"\home\student\hw2\plots")
         print(np.array_str(centroids, precision=3, suppress_small=True))
         print()
