@@ -66,7 +66,7 @@ def kmeans(data, k):
     while not np.array_equal(prev_centroids, current_centroids):
         labels = assign_to_clusters(data, current_centroids)
 
-        # set current centroids to previous so we can check if the algorithm converged.
+        # set current centroids to previous ones we can check if the algorithm converged.
         prev_centroids = current_centroids
         # find new centroids after calculated new labels for all the datapoints
         current_centroids = recompute_centroids(data, labels, k)
@@ -83,7 +83,11 @@ def visualize_results(data, labels, centroids, path):
     :param path: path to save the figure to.
     """
 
-    colors = np.random.rand(max(labels)+1, 3)
+    if max(labels) > 5:
+        colors = np.random.rand(max(labels)+1, 3)
+    else:
+        colors = np.array(['purple', 'yellow', 'red', 'blue', 'green', 'grey'])
+
     label_colors = colors[labels]
 
     plt.figure(figsize=(8, 8))
