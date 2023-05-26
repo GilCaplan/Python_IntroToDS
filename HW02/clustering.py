@@ -126,6 +126,13 @@ def assign_to_clusters(data, centroids):
 
 
 def distance_matrix(data, centroids):
+    """
+    Calculate distance for each datapoint for each centroid
+    :param data: data as numpy array of shape (n, 2)
+    :param centroids: current centroids as numpy array of shape (k, 2)
+    :return: numpy array of shape (n, k)
+    """
+    
     distances = np.empty((data.shape[0], centroids.shape[0]))
     # set empty np array with the current size
     for i in range(data.shape[0]):
