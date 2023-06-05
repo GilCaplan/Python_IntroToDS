@@ -12,28 +12,28 @@ def solve_q1(london_data):
     stat_funcs = [s.calc_mean, s.calc_stdv]
     joint_stat_name = ["Cov(t1, cnt)"]
 
-    print("Summer")
+    print("Summer:")
 
     # filters data into a new dictionary where season has the value 1 (represents summer)
     summer_data = data.filter_by_feature(london_data, "season", [1])[0]
     data.print_details(summer_data, features, stat_funcs)
     data.print_joint_details(summer_data, cov_features, [s.calc_covariance], joint_stat_name)
 
-    print("Holiday: ")
+    print("Holiday:")
 
     # filters data into a new dictionary where holiday has the value 1 (represents holiday)
     holiday = data.filter_by_feature(london_data, "is_holiday", [1])[0]
     data.print_details(holiday, features, stat_funcs)
     data.print_joint_details(holiday, cov_features, [s.calc_covariance], joint_stat_name)
 
-    print("All: ")
+    print("All:")
     data.print_details(london_data, features, stat_funcs)
     data.print_joint_details(london_data, cov_features, [s.calc_covariance], joint_stat_name)
     print()
 
 
 def solve_q2(winter_data):
-    print("Question 2: ")
+    print("Question 2:")
 
     # list of two statistic functions that are needed to be used
     stat_funcs = [s.calc_mean, s.calc_stdv]
@@ -47,12 +47,12 @@ def solve_q2(winter_data):
     non_hol_cnt1 = {feature: non_holiday[feature] for feature in ["t1", "cnt"]}
 
     print("If t1<=13.0, then:")
-    s.population_statistics("Winter holiday records", hol_cnt1, "t1", "cnt", 13, False, stat_funcs)
-    s.population_statistics("Winter weekday records", non_hol_cnt1, "t1", "cnt", 13, False, stat_funcs)
+    s.population_statistics("Winter Holiday records:", hol_cnt1, "t1", "cnt", 13, False, stat_funcs)
+    s.population_statistics("Winter Weekday records:", non_hol_cnt1, "t1", "cnt", 13, False, stat_funcs)
 
     print("If t1>13.0, then:")
-    s.population_statistics("Winter holiday records", hol_cnt1, "t1", "cnt", 13, True, stat_funcs)
-    s.population_statistics("Winter weekday records", non_hol_cnt1, "t1", "cnt", 13, True, stat_funcs)
+    s.population_statistics("Winter Holiday records:", hol_cnt1, "t1", "cnt", 13, True, stat_funcs)
+    s.population_statistics("Winter Weekday records:", non_hol_cnt1, "t1", "cnt", 13, True, stat_funcs)
 
 
 def main(argv):
@@ -67,4 +67,3 @@ def main(argv):
 
 if __name__ == '__main__':
     main(sys.argv)
-
