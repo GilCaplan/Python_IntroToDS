@@ -19,7 +19,7 @@ def main(argv):
         labels, centroids = clustering.kmeans(data, k)
         # calculate the labels of each data point & centroids with kmeans
         
-        path = r"\home\student\hw2\plots\plot" + str(k) + ".png"
+        path = r"/home/student/hw2/plots/plot" + str(k) + ".png"
         clustering.visualize_results(data, labels, centroids, path)
         print(np.array_str(centroids, precision=3, suppress_small=True))
         print()
